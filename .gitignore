@@ -1,0 +1,62 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Editor-based HTTP Client requests
+/httpRequests/
+
+# Datasource local storage ignored files
+/dataSources/
+/dataSources.local.xml
+
+# Ignore build artifacts
+/bin/
+/build/
+
+# Ignore compiled files
+*.exe
+*.dll
+*.o
+*.obj
+
+# Ignore large OpenCV DLLs
+opencv_world470d.dll
+# Add other large DLLs here, if needed
+
+# Ignore generated project files
+*.sdf
+*.opensdf
+*.suo
+*.user
+*.vcxproj.filters
+*.vcxproj.user
+*.vcproj
+
+# Ignore Visual Studio generated files
+.vscode/
+.vs/
+ipch/
+
+# Ignore CMake generated files
+CMakeFiles/
+CMakeCache.txt
+CMakeScripts/
+CMakeTmp/
+CTestTestfile.cmake
+
+# Ignore generated documentation
+/doc/
+
+# Ignore package files
+*.tar.gz
+*.zip
+
+# Ignore macOS files
+.DS_Store
+
+# Ignore Linux swap files
+*~
+
+# Ignore Windows folder config files
+Desktop.ini
+Thumbs.db
