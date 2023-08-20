@@ -60,3 +60,13 @@ CTestTestfile.cmake
 # Ignore Windows folder config files
 Desktop.ini
 Thumbs.db
+
+# CLion-specific files
+.cmake/
+.idea/
+cmake-build-debug/
+*.iml
+*.ipr
+*.iws
+*.db
+*.suo
