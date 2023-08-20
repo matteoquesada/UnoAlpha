@@ -1,10 +1,10 @@
-cmake_minimum_required(VERSION 3.27.3)
+cmake_minimum_required(VERSION 3.26)
+project(teset)
 
-project(unoCPP)
+set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_STANDARD 20)
+include_directories(include)
 
-# Add your executable target
-add_executable(unoCPP unoCPP/src/main.cpp)
-
-
+add_executable(teset
+        include/CImg.h
+        src/main.cpp)
