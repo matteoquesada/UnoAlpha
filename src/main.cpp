@@ -1,19 +1,23 @@
-#include <iostream>
-#include "../include/CImg.h"
+#include <SFML/Graphics.hpp>
 
-int main() {
-    // Create a black image with dimensions 800x600 and 3 color channels (RGB)
-    cimg_library::CImg<unsigned char> image(800, 600, 1, 3, 0);
+int main()
+{
+    sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+    sf::CircleShape shape(100.f);
+    shape.setFillColor(sf::Color::Green);
 
-    // Create a display window for the image
-    cimg_library::CImgDisplay display(image, "Black Window");
+    while (window.isOpen())
+    {
+        sf::Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+        }
 
-    // Wait until the window is closed by the user
-    while (!display.is_closed()) {
-        // Display the image in the window
-        display.display(image);
-        // Handle any user interactions/events
-        display.wait();
+        window.clear();
+        window.draw(shape);
+        window.display();
     }
 
     return 0;
