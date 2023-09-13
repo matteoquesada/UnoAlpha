@@ -1,0 +1,31 @@
+# Visual Studio Code files
+.vscode/
+.vs/
+.x64/
+# Visual Studio directories
+*.suo
+*.user
+*.sln.docstates
+
+# CMake build directories
+CMakeFiles/
+CMakeScripts/
+build/
+CMakeCache.txt
+
+# Compiled files
+*.exe
+*.so
+*.dylib
+
+# Debugging files
+*.pdb
+
+# Logs and databases
+*.log
+*.sqlite
+
+# User-specific directories and files
+Desktop.ini
+Thumbs.db
+.DS_Store
