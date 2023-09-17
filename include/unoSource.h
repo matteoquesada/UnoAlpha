@@ -1,6 +1,11 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+using namespace sf;
 
-void initializeMainMenuResources(sf::Texture& wallpaperTexture, sf::Sprite& wallpaperSprite, sf::Texture& logoTexture, sf::Sprite& logoSprite, sf::Sprite& shadowSprite);
+void initializeMainMenuResources();
 
-void handleMainMenu(sf::RenderWindow& window, sf::Sprite& wallpaperSprite, sf::Sprite& logoSprite, sf::Sprite& shadowSprite);
+void handleMainMenu(RenderWindow& window, int& currentDisplay);
+
+void handleGameModeMenu(RenderWindow& window, int& currentDisplay);
+
+void handleInGame(RenderWindow& window, int& currentDisplay);
