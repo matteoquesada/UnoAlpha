@@ -1,5 +1,6 @@
 #include "../include/unoSource.h"
 #include <iostream>
+#include "../include/card.h"
 
 // SPRITE & TEXTURE OBJECTS
 Texture wallpaperTexture;

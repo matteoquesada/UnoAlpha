@@ -1,16 +1,23 @@
-#pragma once
+#ifndef UNOCARD_H
+#define UNOCARD_H
+
 #include <SFML/Graphics.hpp>
 
-class Card {
+class UNOCard {
 public:
-    Card(sf::Texture& texture);
+    // Constructor to initialize the card with a given color and number
+    UNOCard(const char* color, int number);
+
+    // Function to set the card's texture based on color and number
+    void setTexture();
+
+    // Function to get the card's texture
+    sf::Texture& getTexture();
 
 private:
-    sf::Sprite sprite;
-    sf::Vector2f position;
-    bool isMouseOnButton;
-    bool buttonPressed;
-    bool buttonClicked;
+    sf::Texture texture;
+    const char* color;
+    int number;
 };
 
-
+#endif // UNOCARD_H

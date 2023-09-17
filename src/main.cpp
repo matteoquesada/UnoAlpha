@@ -1,6 +1,6 @@
 #include <iostream>
 #include "../include/unoSource.h"
-
+#include "../include/card.h"
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
