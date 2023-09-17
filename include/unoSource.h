@@ -8,4 +8,4 @@ void handleMainMenu(RenderWindow& window, int& currentDisplay);
 
 void handleGameModeMenu(RenderWindow& window, int& currentDisplay);
 
-void handleInGame(RenderWindow& window, int& currentDisplay);
+void handleInGamePVE(RenderWindow& window, int& currentDisplay);

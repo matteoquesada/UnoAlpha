@@ -21,9 +21,15 @@
     <ClCompile Include="src\unoSource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\card.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\unoSource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\card.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
