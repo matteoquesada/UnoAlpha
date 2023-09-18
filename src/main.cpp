@@ -10,15 +10,34 @@ int main() {
     
 
 
-    const int numCards = 10;
-    Card* cards[numCards];
+    const int numColors = 4; // Red, Blue, Yellow, Green
+    const int numNumbers = 10; // 0-9
 
-    for (int i = 0; i < numCards; ++i) {
-        const std::string color = "red"; // Replace with your desired color
-        int number = i; // Replace with your desired number
-        std::cout << "color: " << color << std::endl;
-        std::cout << "number: " << number << std::endl;
-        cards[i] = new Card(color, number); // Allocate memory and store the pointer
+    Card* cards[numColors * numNumbers];
+
+    for (int colorIndex = 0; colorIndex < numColors; ++colorIndex) {
+        std::string color;
+
+        switch (colorIndex) {
+        case 0:
+            color = "red";
+            break;
+        case 1:
+            color = "blue";
+            break;
+        case 2:
+            color = "yellow";
+            break;
+        case 3:
+            color = "green";
+            break;
+        default:
+            color = "red"; // Default to red for unsupported colors
+        }
+
+        for (int number = 0; number < numNumbers; ++number) {
+            cards[colorIndex * numNumbers + number] = new Card(color, number);
+        }
     }
 
 
