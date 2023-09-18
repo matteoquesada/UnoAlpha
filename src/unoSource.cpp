@@ -1,6 +1,7 @@
 #include "../include/unoSource.h"
 #include <iostream>
 #include "../include/card.h"
+#include <SFML/Graphics.hpp>
 
 // SPRITE & TEXTURE OBJECTS
 Texture wallpaperTexture;
@@ -50,6 +51,20 @@ void initializeMainMenuResources() {
     buttonPVETexture.loadFromFile("assets/buttonPVE.png");
     buttonPVESprite.setTexture(buttonPVETexture);
     buttonPVESprite.setPosition(380, 500);
+}
+
+void initializeCardResources() {
+    const char* colors[] = { "red", "yellow", "green", "blue" };
+    const int maxNumber = 9;
+
+    int cardIndex = 0;
+
+    
+
+
+
+
+
 }
 
 void handleMainMenu(RenderWindow& window, int& currentDisplay) {

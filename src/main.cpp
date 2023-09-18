@@ -2,17 +2,35 @@
 #include "../include/unoSource.h"
 #include "../include/card.h"
 #include <SFML/Graphics.hpp>
+#include <string>
 using namespace sf;
 
 
 int main() {
+    
+
+
+    const int numCards = 10;
+    Card* cards[numCards];
+
+    for (int i = 0; i < numCards; ++i) {
+        const std::string color = "red"; // Replace with your desired color
+        int number = i; // Replace with your desired number
+        std::cout << "color: " << color << std::endl;
+        std::cout << "number: " << number << std::endl;
+        cards[i] = new Card(color, number); // Allocate memory and store the pointer
+    }
+
 
     // WINDOW/CANVAS CREATION
-    RenderWindow window(VideoMode(1280, 720), "UNO Alpha 1.3.0");
+    RenderWindow window(VideoMode(1280, 720), "UNO Alpha 1.4.0");
 
     // SPRITE & TEXTURE OBJECTS
     // INITIALIZE MAIN MENU RESOURCES
     initializeMainMenuResources();
+
+    // INITIALIZE CARD RESOURCES
+
 
     // INITIALIZE BASE MAIN MENU AS DEFAULT DISPLAY
     int currentDisplay = 0;
@@ -24,25 +42,21 @@ int main() {
         case 0: {
             // HANDLE MAIN MENU
             handleMainMenu(window, currentDisplay);
-            std::cout << "case 0" << std::endl;
             break;
         }
         case 1: {
             // HANDLE GAME MODE MENU
             handleGameModeMenu(window, currentDisplay);
-            std::cout << "case 1" << std::endl;
             break;
         }
         case 2: {
             // HANDLE IN-GAME PVP
             //handleInGamePVP(window, currentDisplay);
-            std::cout << "case 2" << std::endl;
             break;
         }
         case 3: {
             // HANDLE IN-GAME PVE
             handleInGamePVE(window, currentDisplay);
-            std::cout << "case 3" << std::endl;
             break;
         }
         default:

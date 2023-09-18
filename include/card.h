@@ -1,23 +1,33 @@
-#ifndef UNOCARD_H
-#define UNOCARD_H
+#ifndef CARD_H
+#define CARD_H
 
-#include <SFML/Graphics.hpp>
+#include <SFML/Graphics.hpp> // Include the SFML library for graphics
 
-class UNOCard {
+
+class Card {
 public:
-    // Constructor to initialize the card with a given color and number
-    UNOCard(const char* color, int number);
+    // Constructor to initialize a card with a given color and number
+    // Constructor to initialize a card with a given color and number
+    Card::Card(const std::string& color, int number);
 
-    // Function to set the card's texture based on color and number
+    // Function to set the card's texture based on its color and number
     void setTexture();
 
     // Function to get the card's texture
     sf::Texture& getTexture();
 
+    // Function to get the card's number
+    int getNumber() const;
+
+    // Function to get the card's color
+    std::string getColor() const;
+
+    
+
 private:
-    sf::Texture texture;
-    const char* color;
-    int number;
+    sf::Texture texture; // Texture for the card
+    const std::string color;     // Color of the card
+    int number;          // Number of the card
 };
 
-#endif // UNOCARD_H
+#endif

@@ -20,11 +20,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\card.cpp" />
+    <ClCompile Include="src\deck.cpp" />
     <ClCompile Include="src\unoSource.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\card.h" />
+    <ClInclude Include="include\deck.h" />
     <ClInclude Include="include\unoSource.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
