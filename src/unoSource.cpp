@@ -2,13 +2,21 @@
 #include <iostream>
 #include "../include/card.h"
 #include <SFML/Graphics.hpp>
+#include "../include/deck.h"
+#include <SFML/Audio.hpp>
 
 // SPRITE & TEXTURE OBJECTS
+
+Deck deck;
+
 Texture wallpaperTexture;
 Sprite wallpaperSprite;
 
 Texture wallpapergGameModeTexture;
 Sprite wallpaperGameModeSprite;
+
+Texture wallpaperInGameTexture;
+Sprite wallpaperInGameSprite;
 
 Texture logoTexture;
 Sprite logoSprite;
@@ -20,7 +28,14 @@ Sprite buttonPVPSprite;
 Texture buttonPVETexture;
 Sprite buttonPVESprite;
 
+SoundBuffer clickSoundBuffer;
+Sound clickSound;
+
+SoundBuffer clickLogoSoundBuffer;
+Sound clickLogoSound;
+
 void initializeMainMenuResources() {
+
     // INITIALIZE MAIN WALLPAPER
     wallpaperTexture.loadFromFile("assets/wallpaper.png");
     wallpaperSprite.setTexture(wallpaperTexture);
@@ -30,6 +45,11 @@ void initializeMainMenuResources() {
     wallpapergGameModeTexture.loadFromFile("assets/wallpaperGameMode.png");
     wallpaperGameModeSprite.setTexture(wallpapergGameModeTexture);
     wallpaperGameModeSprite.setPosition(0, 0);
+
+    // INITIALIZE IN-GAME WALLPAPER
+    wallpaperInGameTexture.loadFromFile("assets/wallpaperInGame.png");
+    wallpaperInGameSprite.setTexture(wallpaperInGameTexture);
+    wallpaperInGameSprite.setPosition(0, 0);
 
     // INITIALIZE LOGO
     logoTexture.loadFromFile("assets/logo.png");
@@ -51,21 +71,17 @@ void initializeMainMenuResources() {
     buttonPVETexture.loadFromFile("assets/buttonPVE.png");
     buttonPVESprite.setTexture(buttonPVETexture);
     buttonPVESprite.setPosition(380, 500);
-}
 
-void initializeCardResources() {
-    const char* colors[] = { "red", "yellow", "green", "blue" };
-    const int maxNumber = 9;
+    // INITIALIZE CLICK SOUND
+    clickSoundBuffer.loadFromFile("assets/sounds/clickPop.mp3");
+    clickSound.setBuffer(clickSoundBuffer);
 
-    int cardIndex = 0;
-
+    // INITIALIZE CLICK LOGO SOUND
+    clickLogoSoundBuffer.loadFromFile("assets/sounds/clickLogo.mp3");
+    clickLogoSound.setBuffer(clickLogoSoundBuffer);
     
-
-
-
-
-
 }
+
 
 void handleMainMenu(RenderWindow& window, int& currentDisplay) {
     // BOOLEAN TO DETERMINE IF MOUSE ON TOP OF LOGO
@@ -89,6 +105,7 @@ void handleMainMenu(RenderWindow& window, int& currentDisplay) {
         else if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left) {
             buttonPressed = false;
             if (mouseOnButton && buttonClicked) {
+                clickLogoSound.play();
                 std::cout << "Button pressed" << std::endl;
                 logoSprite.setColor(Color(150, 150, 150, 255)); // BUTTON PRESSED ON LOGO
                 currentDisplay = 1;
@@ -104,11 +121,14 @@ void handleMainMenu(RenderWindow& window, int& currentDisplay) {
     else if (!mouseOnButton && !buttonPressed) {
         logoSprite.setColor(Color(255, 255, 255, 255)); // DEFAULT STATE
     }
+    
 
     window.clear(); // CLEAR THE WINDOW TO AVOID OVERLAPPING
+    
     window.draw(wallpaperSprite); // DRAW THE WALLPAPER FIRST
     window.draw(shadowSprite); // DRAW THE SHADOW
     window.draw(logoSprite); // DRAW THE LOGO ON TOP OF SHADOW
+    deck.displayDeck(window);
     window.display(); // DISPLAY THE WINDOW
 }
 
@@ -140,6 +160,7 @@ void handleGameModeMenu(RenderWindow& window, int& currentDisplay) {
         if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
             if (mouseOnButtonPVP) {
                 // BUTTON PVP WAS CLICKED
+                clickSound.play();
                 buttonPVPSprite.setColor(Color(100, 100, 100, 255));
                 std::cout << "Button PVP pressed" << std::endl;
                 buttonClicked = true; // SET THE BUTTON CLICK FLAG
@@ -195,5 +216,12 @@ void handleInGamePVE(RenderWindow& window, int& currentDisplay){
 
 
 
+
+
+
+
+    window.clear();
+    window.draw(wallpaperInGameSprite);
+    window.display();
 
 }

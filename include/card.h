@@ -22,7 +22,7 @@ public:
     // Function to get the card's color
     std::string getColor() const;
 
-    
+  
 
 private:
     sf::Texture texture; // Texture for the card

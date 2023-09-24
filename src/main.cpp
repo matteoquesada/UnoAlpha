@@ -1,66 +1,38 @@
 #include <iostream>
-#include "../include/unoSource.h"
-#include "../include/card.h"
 #include <SFML/Graphics.hpp>
 #include <string>
+
 using namespace sf;
+
+// CLASSES & FUNCTIONS
+#include "../include/unoSource.h"
+#include "../include/card.h"
+#include "../include/deck.h"
 
 
 int main() {
     
 
-
-    const int numColors = 4; // Red, Blue, Yellow, Green
-    const int numNumbers = 10; // 0-9
-
-    Card* cards[numColors * numNumbers];
-
-    for (int colorIndex = 0; colorIndex < numColors; ++colorIndex) {
-        std::string color;
-
-        switch (colorIndex) {
-        case 0:
-            color = "red";
-            break;
-        case 1:
-            color = "blue";
-            break;
-        case 2:
-            color = "yellow";
-            break;
-        case 3:
-            color = "green";
-            break;
-        default:
-            color = "red"; // Default to red for unsupported colors
-        }
-
-        for (int number = 0; number < numNumbers; ++number) {
-            cards[colorIndex * numNumbers + number] = new Card(color, number);
-        }
-    }
-
-
     // WINDOW/CANVAS CREATION
-    RenderWindow window(VideoMode(1280, 720), "UNO Alpha 1.4.0");
+    RenderWindow window(VideoMode(1280, 720), "UNO Alpha 1.4.5");
 
-    // SPRITE & TEXTURE OBJECTS
+    // SPRITE & TEXTURE OBJECTS 
     // INITIALIZE MAIN MENU RESOURCES
     initializeMainMenuResources();
-
-    // INITIALIZE CARD RESOURCES
 
 
     // INITIALIZE BASE MAIN MENU AS DEFAULT DISPLAY
     int currentDisplay = 0;
 
-    // MAIN LOOP
+    // MAIN LOOP RUNTIME HANDLER
+
     while (window.isOpen()) {
         // currentDisplay HANDLER SWITCH
         switch (currentDisplay) {
         case 0: {
             // HANDLE MAIN MENU
             handleMainMenu(window, currentDisplay);
+            //deck.displayDeck(window);
             break;
         }
         case 1: {
