@@ -29,7 +29,7 @@ Deck::Deck() {
         }
     }
     // DEBUG PRINT
-    std::cout << "Total number of cards: " << totalCards << std::endl;
+    //std::cout << "Total number of cards: " << totalCards << std::endl;
 }
 
 // Helper function to add cards with the same color and number

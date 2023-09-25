@@ -27,7 +27,7 @@ void Card::setTexture() {
     // Construct the texture filename based on color and number
     std::string filename = "assets/cards/";
     filename += color;
-    std::cout<<type<<std::endl;
+    //std::cout<<type<<std::endl; DEBUG
     if (type != "Common") {
         filename += type;
         }
@@ -37,10 +37,10 @@ void Card::setTexture() {
     }
 
     filename += ".png";
-    std::cout << filename << std::endl;
+    //std::cout << filename << std::endl; DEBUG
     // Load and assign the texture
     if (texture.loadFromFile(filename)) {
-        std::cout << "Loaded texture from: " << filename << std::endl;
+        std::cout << "Loaded texture from directory: " << filename << std::endl;
     }
     else {
         std::cout << "Failed to load image \"" << filename << "\". Reason: Unable to open file" << std::endl;
@@ -60,6 +60,10 @@ int Card::getNumber() const {
 // Function to get the card's color
 std::string Card::getColor() const {
     return color;
+}
+
+std::string Card::getType() const {
+	return type;
 }
 
 // Copy assignment operator implementation

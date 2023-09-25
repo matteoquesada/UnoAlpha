@@ -4,6 +4,25 @@
 
 using namespace sf;
 
+Deck deck;
+Texture wallpaperTexture;
+Sprite wallpaperSprite;
+Texture wallpapergGameModeTexture;
+Sprite wallpaperGameModeSprite;
+Texture wallpaperInGameTexture;
+Sprite wallpaperInGameSprite;
+Texture logoTexture;
+Sprite logoSprite;
+Sprite shadowSprite;
+Texture buttonPVPTexture;
+Sprite buttonPVPSprite;
+Texture buttonPVETexture;
+Sprite buttonPVESprite;
+SoundBuffer clickSoundBuffer;
+Sound clickSound;
+SoundBuffer clickLogoSoundBuffer;
+Sound clickLogoSound;
+
 // CONSTRACTOR TO INITIALIZE THE GAME OBJECT AND SHUFFLE THE DECK
 Game::Game() : currentDisplay(0) {
     initializeResources();
@@ -39,6 +58,8 @@ void Game::initializeResources() {
 // FUNCTION TO RUN THE GAME USED IN THE MAIN FUNCTION
 // USES CURRENT DISPLAY VARIABLE TO KEEP TRACK OF THE CURRENT DISPLAY AND CALLS THE CORRESPONDING FUNCTION
 void Game::run(RenderWindow& window) {
+    std::cout << "Game instance started successfully... Displaying window." << std::endl;
+
     while (window.isOpen()) {
         switch (currentDisplay) {
         case 0:

@@ -1,5 +1,4 @@
-#ifndef CARD_H
-#define CARD_H
+#pragma once
 
 #include <SFML/Graphics.hpp> // Include the SFML library for graphics
 
@@ -23,6 +22,9 @@ public:
     // Function to get the card's color
     std::string getColor() const;
 
+    // Function to get the card's type
+    std::string getType() const;
+
     // Copy assignment operator
     Card& operator=(const Card& other);
 
@@ -33,4 +35,4 @@ private:
     int number;          // Number of the card
 };
 
-#endif
+

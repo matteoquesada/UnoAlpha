@@ -10,24 +10,6 @@ using namespace sf;
 // SPRITE & TEXTURE OBJECTS EXTERN DECLARATION IN ORDER TO BE USED IN OTHER FILES
 // EXTERN MEANS THAT THE OBJECT IS DECLARED IN ANOTHER FILE AND IS DEFINED IN THIS FILE
 // EXTERN IS USED TO AVOID MULTIPLE DEFINITION ERRORS
-extern Deck deck;
-extern Texture wallpaperTexture;
-extern Sprite wallpaperSprite;
-extern Texture wallpapergGameModeTexture;
-extern Sprite wallpaperGameModeSprite;
-extern Texture wallpaperInGameTexture;
-extern Sprite wallpaperInGameSprite;
-extern Texture logoTexture;
-extern Sprite logoSprite;
-extern Sprite shadowSprite;
-extern Texture buttonPVPTexture;
-extern Sprite buttonPVPSprite;
-extern Texture buttonPVETexture;
-extern Sprite buttonPVESprite;
-extern SoundBuffer clickSoundBuffer;
-extern Sound clickSound;
-extern SoundBuffer clickLogoSoundBuffer;
-extern Sound clickLogoSound;
 
 class Game {
 public:
