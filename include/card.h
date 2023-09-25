@@ -3,12 +3,10 @@
 
 #include <SFML/Graphics.hpp> // Include the SFML library for graphics
 
-
 class Card {
 public:
     // Constructor to initialize a card with a given color and number
-    // Constructor to initialize a card with a given color and number
-    Card::Card(const std::string& color, int number);
+    Card(const std::string& color, int number);
 
     // Function to set the card's texture based on its color and number
     void setTexture();
@@ -22,11 +20,12 @@ public:
     // Function to get the card's color
     std::string getColor() const;
 
-  
+    // Copy assignment operator
+    Card& operator=(const Card& other);
 
 private:
     sf::Texture texture; // Texture for the card
-    const std::string color;     // Color of the card
+    std::string color;   // Color of the card
     int number;          // Number of the card
 };
 

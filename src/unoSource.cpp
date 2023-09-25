@@ -135,10 +135,10 @@ void handleMainMenu(RenderWindow& window, int& currentDisplay) {
 
 void handleGameModeMenu(RenderWindow& window, int& currentDisplay) {
 
-    // CHECK IF THE CURRENT DISPLAY IS THE GAME MODE MENU
-    if (currentDisplay != 1) {
-        return;
-    }
+     //CHECK IF THE CURRENT DISPLAY IS THE GAME MODE MENU
+    //if (currentDisplay != 1) {
+        //return;
+    //}
 
     // BOOLEAN TO DETERMINE IF MOUSE ON TOP OF BUTTONS
     bool mouseOnButtonPVP = false;
@@ -166,14 +166,14 @@ void handleGameModeMenu(RenderWindow& window, int& currentDisplay) {
                 buttonClicked = true; // SET THE BUTTON CLICK FLAG
                 //currentDisplay = 2;
             }
-            else if(mouseOnButtonPVE) {
+            else if (mouseOnButtonPVE) {
                 // BUTTON PVE WAS CLICKED
-				buttonPVESprite.setColor(Color(100, 100, 100, 255)); 
-				std::cout << "Button PVE pressed" << std::endl;
-				buttonClicked = true; // SET THE BUTTON CLICK FLAG
-				currentDisplay = 3;
-			}
-           
+                buttonPVESprite.setColor(Color(100, 100, 100, 255));
+                std::cout << "Button PVE pressed" << std::endl;
+                buttonClicked = true; // SET THE BUTTON CLICK FLAG
+                currentDisplay = 3;
+            }
+
         }
         else if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left) {
             // BUTTON PVP/PVE WAS RELEASED
@@ -194,11 +194,11 @@ void handleGameModeMenu(RenderWindow& window, int& currentDisplay) {
     }
 
     if (mouseOnButtonPVE && !buttonClicked) {
-		buttonPVESprite.setColor(Color(200, 200, 200, 255)); // MOUSE HOVER
-	}
+        buttonPVESprite.setColor(Color(200, 200, 200, 255)); // MOUSE HOVER
+    }
     else if (!mouseOnButtonPVE && !buttonClicked) {
-		buttonPVESprite.setColor(Color(255, 255, 255, 255)); // DEFAULT STATE
-	}
+        buttonPVESprite.setColor(Color(255, 255, 255, 255)); // DEFAULT STATE
+    }
 
     // DRAW THE WINDOW
     window.clear(); // CLEAR THE WINDOW TO AVOID OVERLAPPING

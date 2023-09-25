@@ -1,6 +1,4 @@
-#ifndef DECK_H
-#define DECK_H
-
+#pragma once 
 #include <SFML/Graphics.hpp>
 #include "card.h" // Include your Card class header
 
@@ -23,4 +21,4 @@ private:
     std::vector<Card> cards; // A vector to store the cards in the deck
 };
 
-#endif
+

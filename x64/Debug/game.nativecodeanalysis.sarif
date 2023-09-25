@@ -1,0 +1,865 @@
+{
+  "version": "2.1.0",
+  "$schema": "https://schemastore.azurewebsites.net/schemas/json/sarif-2.1.0-rtm.5.json",
+  "runs": [
+    {
+      "results": [
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'sf::Glyph::rsbDelta' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/B450M R5/Desktop/unoCpp/SFML/include/SFML/Graphics/Glyph.hpp"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "sf::Glyph::{ctor}",
+                  "decoratedName": "??0Glyph@sf@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "sf::Glyph::rsbDelta"
+          }
+        },
+        {
+          "ruleId": "C26495",
+          "message": {
+            "text": "Variable 'sf::Glyph::lsbDelta' is uninitialized. Always initialize a member variable (type.6)."
+          },
+          "locations": [
+            {
+              "physicalLocation": {
+                "artifactLocation": {
+                  "uri": "file:///C:/Users/B450M R5/Desktop/unoCpp/SFML/include/SFML/Graphics/Glyph.hpp"
+                },
+                "region": {
+                  "startLine": 49,
+                  "startColumn": 5
+                }
+              },
+              "logicalLocations": [
+                {
+                  "fullyQualifiedName": "sf::Glyph::{ctor}",
+                  "decoratedName": "??0Glyph@sf@@QEAA@XZ",
+                  "kind": "function"
+                }
+              ]
+            }
+          ],
+          "properties": {
+            "targetSymbol": "sf::Glyph::lsbDelta"
+          }
+        }
+      ],
+      "tool": {
+        "driver": {
+          "name": "PREfast",
+          "fullName": "PREfast Code Analysis",
+          "version": "14.37.32822.0",
+          "informationUri": "https://aka.ms/cpp/ca"
+        }
+      },
+      "invocations": [
+        {
+          "executionSuccessful": true
+        }
+      ],
+      "artifacts": [
+        {
+          "location": {
+            "uri": "file:///C:/Users/B450M R5/Desktop/unoCpp/SFML/include/SFML/Graphics/Glyph.hpp"
+          },
+          "roles": [
+            "resultFile"
+          ],
+          "hashes": {
+            "sha-256": "204c0976cdcca305a0d5f0b0c9916d5846f072515752301ff1264f075dac5e4a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/src/game.cpp"
+          },
+          "roles": [
+            "analysisTarget"
+          ],
+          "hashes": {
+            "sha-256": "54a0b12767b2b398f6062f81af1aa756adfeff9611d10ab4ddd88bad791147a9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/include/game.h"
+          },
+          "hashes": {
+            "sha-256": "4f66a04bb36a21006ca18df50a24dd0eefd4c56d57e0f1511348d7b240a1848f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics.hpp"
+          },
+          "hashes": {
+            "sha-256": "32539b65f3b85d42857dca569c22b59f290a218ba12ec4a7469432ae40ca18e0"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window.hpp"
+          },
+          "hashes": {
+            "sha-256": "d6be97b119353376f841a06248bad678fb447daa110fb01ab26b8d63796d4049"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system.hpp"
+          },
+          "hashes": {
+            "sha-256": "a744c9d4260045ad1443ef8f64be78241ac8e11ccf9437055c01ced0ffac3403"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/config.hpp"
+          },
+          "hashes": {
+            "sha-256": "42b239ec7d0aef0cb572799739b81cb0d1a2e32e258d7d52f29a41110ae3a652"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/clock.hpp"
+          },
+          "hashes": {
+            "sha-256": "99e8c3e8b72b9821b0bf530a766c6185a4b9bcb2ebd4f7f49f06c89ba0fa7c5e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "147108e8e714dda70bbede4be3aa9d93507f482d9889b9fca65f7bfca971be5c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/time.hpp"
+          },
+          "hashes": {
+            "sha-256": "0ed6b91c7988847c1b02b7d00a85bcaa216b290c5f44807770bf466353ae77c6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/err.hpp"
+          },
+          "hashes": {
+            "sha-256": "5f4b7176a137720087cba3f921ac43064977b4a3d94555b4c512e942e756bfd1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/fileinputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "80a669c3e2ee0ab97e9d728eb8c7dd57b4a8f251d5715aceb73e4f451cc78749"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/inputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "ebf3ed8c45eaedc106c43b1e657e19f2cee26928fe59b415915076a53dbc844a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/noncopyable.hpp"
+          },
+          "hashes": {
+            "sha-256": "29afca51904c1b173d52b1368d632d4e420c54f4a35b957bd6c6aad1e4ff7c7a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/lock.hpp"
+          },
+          "hashes": {
+            "sha-256": "4426f773c8248bc51c2d77526bab68ca85472041eb88a6db8e2cd4c4549c65cd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/memoryinputstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "25b3787914b405c2b64b4e245729c9fce9c4ac9d4a7315cc5776b59faaf8b6a5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/mutex.hpp"
+          },
+          "hashes": {
+            "sha-256": "1ea37e2525eadf07ce21591476c94086aec7a075dbdf0f84df7e7826f3fa7205"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/sleep.hpp"
+          },
+          "hashes": {
+            "sha-256": "9bb62da13ee6af8dd12cb83d033b68948ccafd56256efe58df3bb9d7a570dfcc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/string.hpp"
+          },
+          "hashes": {
+            "sha-256": "a685d0bfd92514710d62312a83deb8a51112f4a550d94012ce31d2e9c0ed358e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/utf.hpp"
+          },
+          "hashes": {
+            "sha-256": "8c7817ffe67b4bf73e4d279dca6fe138f606aef01030054f104e6c466ca57621"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/utf.inl"
+          },
+          "hashes": {
+            "sha-256": "bfa4ee2cfd7a04465ca347ec175542dab2e4afb9301ba10b78a66c2c7eafa5b6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/string.inl"
+          },
+          "hashes": {
+            "sha-256": "98cc8db155233c2629bf8a89b31ba7c08e44683919ed97134201f76ed474d4d4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/thread.hpp"
+          },
+          "hashes": {
+            "sha-256": "2bbbe7f7a203af00ec3b616d5621157ea06f2f27928c1b3071846ba43114fde8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/thread.inl"
+          },
+          "hashes": {
+            "sha-256": "42d2ba6c87e4fd32ed2353e49f84119d901d99c2e338f07f2b129a993d66cdd4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/threadlocal.hpp"
+          },
+          "hashes": {
+            "sha-256": "bc60ed01ee4c4894259402a182dda9179c28865d18f1f24d3336dd5a8c194d68"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/threadlocalptr.hpp"
+          },
+          "hashes": {
+            "sha-256": "50d686ce7ef2ec9f94fc2b01ff78b0ac490caa2b2c87ae6a51bd3bf2c31cca6f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/threadlocalptr.inl"
+          },
+          "hashes": {
+            "sha-256": "a1d987fe766cace850524871027049c1ae35bbd2a69adbff664a9dde7b8c561d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/vector2.hpp"
+          },
+          "hashes": {
+            "sha-256": "6b6ce9c482717b90e608ea2fd78db9c147e7125c2dc5e596e300f55d4833933e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/vector2.inl"
+          },
+          "hashes": {
+            "sha-256": "587f6a8a57096811dd2fc595211246502785f8fbecefea69412081ea260f9c96"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/vector3.hpp"
+          },
+          "hashes": {
+            "sha-256": "51e8f01ccafbfbd4b62f4c0ac9147d2f15fcf639ce191ff7b8edd18d73f847b9"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/system/vector3.inl"
+          },
+          "hashes": {
+            "sha-256": "d7212f6f492d012653df7b53fe9a13c753a4d61bd5adb3bf89db328ea9cf45d2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/clipboard.hpp"
+          },
+          "hashes": {
+            "sha-256": "a68a19735b9da59e8b2a3e8ab8e7d612e8b8a3dce60099f7caa515a13ca80ee5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "56d91b0cc853f33de48b0214fd56b94e613470cdfc63ebf2f796e3e1ce0b5942"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/context.hpp"
+          },
+          "hashes": {
+            "sha-256": "3d58fa2e3ae38a68f97e0a4b430768f0f56eafe2086a2020fe9e26c0c69e8ee2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/glresource.hpp"
+          },
+          "hashes": {
+            "sha-256": "230d28105f0991222e4f2f38c605fe1ce5ea50ee001759e188db1598252c6db2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/contextsettings.hpp"
+          },
+          "hashes": {
+            "sha-256": "aca50dcdef5578d5017f904ababc14563980a868eca7cf61f40839baa1df6dd8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/cursor.hpp"
+          },
+          "hashes": {
+            "sha-256": "57ddd3e95f5bc4b0b044651f6189b0cdd61d7ed0bbfbd47e43bb15b96691086a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/event.hpp"
+          },
+          "hashes": {
+            "sha-256": "3879db9003694f3b67e51508d8d148592796333f1536d2ba77315c9117be0f12"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/joystick.hpp"
+          },
+          "hashes": {
+            "sha-256": "bc941fc61270d7131eb864733802cf6f6e33e04ceefebe0e889db7b57b145644"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/keyboard.hpp"
+          },
+          "hashes": {
+            "sha-256": "36ce440f7398ebfd8ad88e5380af20feba7fdf592acbcefb7cd9c273f5fb1c47"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/mouse.hpp"
+          },
+          "hashes": {
+            "sha-256": "45d521e627755c4016cf9563abbe5a4aaf73cf720322d556f32047467e976911"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/sensor.hpp"
+          },
+          "hashes": {
+            "sha-256": "b66cb9233813077c6d35f628c994854e010ee32b4d2214718d3610559ff3aac7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/touch.hpp"
+          },
+          "hashes": {
+            "sha-256": "bb226214aeb856a970ad8588dd53650abe9d8f126bf85389f40f94d4e1b474b4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/videomode.hpp"
+          },
+          "hashes": {
+            "sha-256": "8180f9b5184a76dcd0b9439279fd60da3a26b1ff11b8b13816b366f48e1e369a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/window.hpp"
+          },
+          "hashes": {
+            "sha-256": "6673ee7342af275c62306d668ecd5f69ad07e2569ff14ab5a04b7b14dfdecc90"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/windowbase.hpp"
+          },
+          "hashes": {
+            "sha-256": "8db81fdeb779d387efeab2a784b48d7f1df5714435aaa63e0f9801598382e3ae"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/vulkan.hpp"
+          },
+          "hashes": {
+            "sha-256": "fd21b9a7654d8dc21098c710886813962ec9cff7d8291f2150e5aaca827841e8"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/windowhandle.hpp"
+          },
+          "hashes": {
+            "sha-256": "52fcf3d0e699dca76e5adbb6f81a6a1e0b5c3085945d1a0d81810e7ecbe6640c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/window/windowstyle.hpp"
+          },
+          "hashes": {
+            "sha-256": "e91d24eaa4481c2a6a067b7468ee288b7be2a2a58e7472d3f143ab8aecf0647e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/blendmode.hpp"
+          },
+          "hashes": {
+            "sha-256": "8a54d79c01eb30a9efb52b9494d17b5098b57e9b97d6fa3e13cd629bde382543"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "429b2849616c6c5b32840dae23d0716d9e91069127e8d84f46860d6ba93cf686"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/circleshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "5a49da2d22a74a7513061cafd2f3bb6d0491c3b667ef76b7e0f81de3e3d331f4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/shape.hpp"
+          },
+          "hashes": {
+            "sha-256": "d1137f53e309bf733e70846e226a75e4ef3873adc48c251c3b50d7a04c966a05"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/drawable.hpp"
+          },
+          "hashes": {
+            "sha-256": "6193525d4bcd3746cd67109f407b169e49226496f112a0a4f86c45f1e8ff4e5d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/renderstates.hpp"
+          },
+          "hashes": {
+            "sha-256": "a7f4a0a2fa4b522ea1070fe70b3fa55c1749a7ce7efc45bddaa832cf2217fc5d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/transform.hpp"
+          },
+          "hashes": {
+            "sha-256": "7f49821a1e4cf52737bd3a4d9ff6a352ed4e465b7ae8b67d23779a90c24b093b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/rect.hpp"
+          },
+          "hashes": {
+            "sha-256": "be5ad06e09bd78800b821af03c71cb0a8a85d0ed2e6f1fb4c743c950634a006f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/rect.inl"
+          },
+          "hashes": {
+            "sha-256": "6173c80c5bd1a3f038a034fd2aeecc0200beba23c0cafcd074dc94c69330d2f7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/transformable.hpp"
+          },
+          "hashes": {
+            "sha-256": "5b44678466f9016944b0a47e827dc2cd70857094da987d4b40d01c196cb4b0d2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/vertexarray.hpp"
+          },
+          "hashes": {
+            "sha-256": "1d1d2ad2e2b0b39ef1ed06c948b2319697fa87a3c3d27e861c0bc0155f9bd45d"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/vertex.hpp"
+          },
+          "hashes": {
+            "sha-256": "21fcaffac539a545faf73cf2776325b9e43671a39c1ad1f89d0f8eb663a21deb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/color.hpp"
+          },
+          "hashes": {
+            "sha-256": "30ed4035037f30b510220a9a54348bcd7f005299fc3da90b68639168f942b8fb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/primitivetype.hpp"
+          },
+          "hashes": {
+            "sha-256": "d1cda268040aec69065fffdf852b81bfab5195c54d2736161cf0a391e35cf11f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/convexshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "9c41b5e0f438b9311fee81ecfe7ec5bca90ebcb7cf553e394179bb114ef2cae4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/font.hpp"
+          },
+          "hashes": {
+            "sha-256": "e043b71d0f9c1d1c568d1d0348ddef3c541f9fafb18e1795c5c177bb14cc574c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/texture.hpp"
+          },
+          "hashes": {
+            "sha-256": "4c00881579ef7e231d1d076ca5655e59aab29a135e95c3171b3f2d107d3e760a"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/image.hpp"
+          },
+          "hashes": {
+            "sha-256": "06412d255f1535f08dcd4da588b870438535ffcde4c76f134f5d1132862ec588"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/rectangleshape.hpp"
+          },
+          "hashes": {
+            "sha-256": "cccf5ee6b665df8a0bd733ecc39db9386f0c8b1a4c864d67684018edcfd70836"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/rendertarget.hpp"
+          },
+          "hashes": {
+            "sha-256": "0c28ae3609b922c946214d6d6d0054cf4ddca6836294a870ce0bb2f1af4aef98"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/view.hpp"
+          },
+          "hashes": {
+            "sha-256": "7743a5cddd170268458699b1c6082109f90294e5df12c5a695ddd5cf94375826"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/rendertexture.hpp"
+          },
+          "hashes": {
+            "sha-256": "32c583b5f1f81d26ec7230ff16e3abdafa00082b3d7d43202c34868796fc3b4c"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/renderwindow.hpp"
+          },
+          "hashes": {
+            "sha-256": "113f9005aff54b6a12a461d53009bd9ad072ff97390eb00205b1d8de57be30d4"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/shader.hpp"
+          },
+          "hashes": {
+            "sha-256": "dbaf992e51c8f564e8af01afd7c87a0a754d8a2a05d70f9d7b3ee59f4875efa3"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/glsl.hpp"
+          },
+          "hashes": {
+            "sha-256": "92a59c4f87af2ab005e755146562eebffa1694943368795e21bab371acf58197"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/glsl.inl"
+          },
+          "hashes": {
+            "sha-256": "c6b365c04df56f4fe41b720809327b06d125e183c1821838c8086708fc319be5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/sprite.hpp"
+          },
+          "hashes": {
+            "sha-256": "c10bb505265cc3492dad92ef904aacb561472f723ef49db0db59a1f17096e3dd"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/text.hpp"
+          },
+          "hashes": {
+            "sha-256": "23e6e2058cbaf338100870e81333c14be39bb300c3ca23912199bc58f984e5ea"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/graphics/vertexbuffer.hpp"
+          },
+          "hashes": {
+            "sha-256": "68e622b257a1541dbbf209491a18eddf02cfff080d327e0906513b922b3c0432"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio.hpp"
+          },
+          "hashes": {
+            "sha-256": "c09fe142a75c315fbf002414e516b912f91da796ba4fea732cde5b7b6758ac1f"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/inputsoundfile.hpp"
+          },
+          "hashes": {
+            "sha-256": "97e08579589660952c520e16eca8e67db38aff56c54979f9bd8a16ea1648a43b"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/export.hpp"
+          },
+          "hashes": {
+            "sha-256": "21608a3872b2ec17f81519594a9203f5b1a2cf99e1a8fe71d861b60a08c8b4bb"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/listener.hpp"
+          },
+          "hashes": {
+            "sha-256": "6ca1475e53bd8d70d81cb25d3b0113e347d1aa1c7a9904679ad7ae1bf7915949"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/music.hpp"
+          },
+          "hashes": {
+            "sha-256": "67518bf3ddbb8ff0fe0bcdcd624a3126cc2d0b303e483921b8e53844f6deeadf"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundstream.hpp"
+          },
+          "hashes": {
+            "sha-256": "bddc426c40458f94ae94f8bad286cbc05eb5f3f3f8953e64e91436f232036cd2"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundsource.hpp"
+          },
+          "hashes": {
+            "sha-256": "6efbda19c127c2ec1e1e2461ed21636d09f81f46740263d660091622fc55c962"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/alresource.hpp"
+          },
+          "hashes": {
+            "sha-256": "d133377e7c81938f098c8d095e0b84b35ebd29497765fda360ef73b65664ea01"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/outputsoundfile.hpp"
+          },
+          "hashes": {
+            "sha-256": "69182aa9946133d63265c725e65d76f75b9f7a6d2bea533490a260fc665b1e87"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/sound.hpp"
+          },
+          "hashes": {
+            "sha-256": "4ad84863e588575207ac74d82be6e75c39e3fe8623bc68df746935d412441cf6"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundbuffer.hpp"
+          },
+          "hashes": {
+            "sha-256": "f0468a40130a8b5c0f71bcadcfcc7a3491c7919d57d5b5cf9633db9d2369bfee"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundbufferrecorder.hpp"
+          },
+          "hashes": {
+            "sha-256": "e8bc033d381c4ef6bab41ff31d65c77b249f81b7590dbe36653a588be75999a7"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundrecorder.hpp"
+          },
+          "hashes": {
+            "sha-256": "6c52a584367f8e3aabd338d530bc47a0723ef854795ef4ff26319a21cf5ea154"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundfilefactory.hpp"
+          },
+          "hashes": {
+            "sha-256": "f8cac85c1b2fc8f420f28a0c334172928a2e7c42c2105a7540e50d1c65a8edbc"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundfilefactory.inl"
+          },
+          "hashes": {
+            "sha-256": "3b4fddc2c75e6e116f1923d4f5e3fb379612e9173f0cc48c8825458e324e35b5"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundfilereader.hpp"
+          },
+          "hashes": {
+            "sha-256": "abb364df38284bbb02aab8671dfdbaf3a430b69ba9e22ee788c0e3c62d47fb4e"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/sfml/include/sfml/audio/soundfilewriter.hpp"
+          },
+          "hashes": {
+            "sha-256": "08f354347d7aec9701c00c72cb0b43df725e58d78227383d74e514596c072188"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/include/deck.h"
+          },
+          "hashes": {
+            "sha-256": "7c8c24d115d17440b1ddb5a0cadd05b2914f57e585a8a918fa54ec7d181057e1"
+          }
+        },
+        {
+          "location": {
+            "uri": "file:///c:/users/b450m r5/desktop/unocpp/include/card.h"
+          },
+          "hashes": {
+            "sha-256": "7dda8952200e01c879b00acdd8bf0a1cbe9c52f314583f0080bee5eca81f1172"
+          }
+        }
+      ]
+    }
+  ]
+}

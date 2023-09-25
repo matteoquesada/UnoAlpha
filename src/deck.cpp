@@ -53,8 +53,18 @@ Deck::Deck() {
 
 
 // Shuffle the deck
+// Shuffle the deck
 void Deck::shuffle() {
+    // Use a random device as a source of randomness
+    std::random_device rd;
+
+    // Use the random device to seed the random number generator
+    std::mt19937 gen(rd());
+
+    // Shuffle the cards using the random number generator
+    std::shuffle(cards.begin(), cards.end(), gen);
 }
+
 
 // Draw and remove the top card from the deck
 Card Deck::drawCard() {

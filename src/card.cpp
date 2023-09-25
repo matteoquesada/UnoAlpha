@@ -3,18 +3,13 @@
 #include <string>
 #include <iostream>
 
-
 using namespace sf;
 
-
-// bradley added this   constructor 
 // Constructor to initialize a card with a given color and number
 Card::Card(const std::string& color, int number) : color(color), number(number) {
-    setTexture(); // Set the card's texture based on color and number
+    // Initialize other members as needed
+    setTexture(); // Set the card's texture during construction
 }
-
-// Function to set the card's texture based on its color and number
-// Modify the Card class
 
 // Function to set the card's texture based on its color and number
 void Card::setTexture() {
@@ -31,19 +26,12 @@ void Card::setTexture() {
     }
     else {
         // Convert the color to a lowercase string for the filename
-        if (color == "red") {
-            filename += "red";
-        }
-        else if (color == "blue") {
-            filename += "blue";
-        }
-        else if (color == "yellow") {
-            filename += "yellow";
-        }
-        else if (color == "green") {
-            filename += "green";
-        }
-        else {
+        std::string lowercaseColor = color;
+        std::transform(lowercaseColor.begin(), lowercaseColor.end(), lowercaseColor.begin(), ::tolower);
+
+        filename += lowercaseColor;
+
+        if (lowercaseColor != "red" && lowercaseColor != "blue" && lowercaseColor != "yellow" && lowercaseColor != "green") {
             // Handle unsupported colors
             filename += "special";
         }
@@ -55,15 +43,12 @@ void Card::setTexture() {
 
     // Load and assign the texture
     if (texture.loadFromFile(filename)) {
-        // Optionally, set the texture for a sprite or render as needed
+        std::cout << "Loaded texture from: " << filename << std::endl;
     }
     else {
         std::cout << "Failed to load image \"" << filename << "\". Reason: Unable to open file" << std::endl;
     }
 }
-
-
-
 
 // Function to get the card's texture
 sf::Texture& Card::getTexture() {
@@ -80,3 +65,14 @@ std::string Card::getColor() const {
     return color;
 }
 
+// Copy assignment operator implementation
+Card& Card::operator=(const Card& other) {
+    if (this != &other) {
+        // Copy each member variable from 'other' to 'this'
+        this->color = other.color;
+        this->number = other.number;
+        // Copy other members as needed
+        this->texture = other.texture; // Copy texture (assuming sf::Texture supports assignment)
+    }
+    return *this;
+}
