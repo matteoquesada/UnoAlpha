@@ -4,9 +4,10 @@
 
 using namespace sf;
 
-// CONSTRACTOR TO INITIALIZE THE GAME OBJECT
+// CONSTRACTOR TO INITIALIZE THE GAME OBJECT AND SHUFFLE THE DECK
 Game::Game() : currentDisplay(0) {
     initializeResources();
+    deck.shuffle();
 }
 
 // FUNCTION TO INITIALIZE TEXTURES AND SPRITES -how to:-(TEXTURE, SPRITE, FILENAME, X, Y, SCALEX, SCALEY)

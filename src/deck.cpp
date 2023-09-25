@@ -5,68 +5,62 @@
 #include <random>
 using namespace sf;
 
-// Define the Deck class to manage a collection of cards
+// DEFINE THE DECK CLASS TO MANAGE A COLLECTION OF CARDS
+// DECK CONSTRUCTOR
 
-
-// Deck constructor
-// Deck constructor
 Deck::Deck() {
-    // Initialize the main deck with all cards, including special ones
-    const int numColors = 4; // Red, Blue, Yellow, Green
-    const int numNumbers = 10; // 0-9 number of numbers
+    // INITIALIZE THE MAIN DECK WITH ALL CARDS, INCLUDING SPECIAL ONES
+    std::string colors[4] = { "red", "blue", "yellow", "green" };
 
-    for (int colorIndex = 0; colorIndex < numColors; ++colorIndex) {
-        std::string color;
+    int totalCards = 0; // INITIALIZE THE TOTAL NUMBER OF CARDS TO 0 (DEBUG)
 
-        switch (colorIndex) {
-        case 0:
-            color = "red";
-            break;
-        case 1:
-            color = "blue";
-            break;
-        case 2:
-            color = "yellow";
-            break;
-        case 3:
-            color = "green";
-            break;
-        default:
-            color = "COLOR INPUT ERROR"; // Default to red for unsupported colors
-        }
-
-        for (int number = 0; number < numNumbers; ++number) {
-            cards.emplace_back(color, number); // Add the card to the main deck
-            cards.emplace_back(color, number); // Add another card of the same color and number
+    for (int i = 0; i < 4; i++) {
+        for (int number = 0; number <= 10; ++number) {
+            if (number == 0) {
+                addCard(colors[i], number, 1); // Add one zero card to the main deck per color
+            }
+            else if (number == 10) {
+                addSpecialCards(colors[i]);
+                totalCards += 8; // INCREMENT THE COUNT BY 2 FOR THE SPECIAL CARDS
+            }
+            else {
+                addCard(colors[i], number, 2); // Add two cards of the same color and number
+            }
         }
     }
+    // DEBUG PRINT
+    std::cout << "Total number of cards: " << totalCards << std::endl;
+}
 
-    // Add 4 of each special card to the main deck
-    for (int i = 0; i < 4; ++i) {
-        cards.emplace_back("special", -1); // specialRumble.png
-        cards.emplace_back("special", -2); // specialPlus.png
+// Helper function to add cards with the same color and number
+void Deck::addCard(const std::string& color, int number, int count) {
+    for (int i = 0; i < count; i++) {
+        cards.emplace_back(color, number);
     }
 }
 
+// Helper function to add special cards for a color
+void Deck::addSpecialCards(const std::string& color) {
+    addCard(color, -1, 2); // Add two Reverse cards
+    addCard(color, -2, 2); // Add two Plus2 cards
+    addCard(color, -3, 2); // Add two Skip cards
+    addCard("wild", -4, 1); // Add one Rumble card
+    addCard("wild", -5, 1); // Add one Rumble card
+}
 
-
-
-
-// Shuffle the deck
-// Shuffle the deck
+// SHUFFLE THE DECK
 void Deck::shuffle() {
-    // Use a random device as a source of randomness
+    // USE A RANDOM DEVICE AS A SOURCE OF RANDOMNESS
     std::random_device rd;
 
-    // Use the random device to seed the random number generator
+    // USE THE RANDOM DEVICE TO SEED THE RANDOM NUMBER GENERATOR
     std::mt19937 gen(rd());
 
-    // Shuffle the cards using the random number generator
+    // SHUFFLE THE CARDS USING THE RANDOM NUMBER GENERATOR
     std::shuffle(cards.begin(), cards.end(), gen);
 }
 
-
-// Draw and remove the top card from the deck
+// DRAW AND REMOVE THE TOP CARD FROM THE DECK
 Card Deck::drawCard() {
     if (!cards.empty()) {
         Card topCard = cards.back();
@@ -74,36 +68,25 @@ Card Deck::drawCard() {
         return topCard;
     }
     else {
-        // Handle the case when the deck is empty
-        return Card("empty", -1); // You can create a special "empty" card
+        // HANDLE THE CASE WHEN THE DECK IS EMPTY
+        return Card("EMPTY", -1); // YOU CAN CREATE A SPECIAL "EMPTY" CARD
     }
 }
 
-// Display the entire deck on the window
+// DISPLAY THE ENTIRE DECK ON THE WINDOW
 void Deck::displayDeck(sf::RenderWindow& window) {
-   // const float screenWidth = static_cast<float>(window.getSize().x);
-    //const float screenHeight = static_cast<float>(window.getSize().y);
-
     const float cardWidth = cards[0].getTexture().getSize().x;
     const float cardHeight = cards[0].getTexture().getSize().y;
-
-    // Calculate the initial position to center the pile horizontally
-    float xOffset = 1200.0;
-
-    // Calculate the initial position for the pile's top card
-    float topYOffset = 0.0;
-
-    // Define a spacing between cards in the pile
+    float yOffset = 7.0;
+    float leftXOffset = 20.0;
     const float cardSpacing = 10.0f;
     for (Card& card : cards) {
-        Sprite cardSprite;
+        sf::Sprite cardSprite;
         cardSprite.setTexture(card.getTexture());
-        cardSprite.setPosition(xOffset, topYOffset);
-
+        cardSprite.setPosition(leftXOffset, yOffset);
+        cardSprite.setScale(0.2f, 0.2f);
         window.draw(cardSprite);
-
-        // Increase the Y offset for the next card
-        topYOffset += cardSpacing;
+        leftXOffset += cardSpacing;
     }
 }
 

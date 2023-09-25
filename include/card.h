@@ -8,6 +8,9 @@ public:
     // Constructor to initialize a card with a given color and number
     Card(const std::string& color, int number);
 
+    // Constructor to initialize a card with a given color and special type
+
+
     // Function to set the card's texture based on its color and number
     void setTexture();
 
@@ -25,6 +28,7 @@ public:
 
 private:
     sf::Texture texture; // Texture for the card
+    std::string type;
     std::string color;   // Color of the card
     int number;          // Number of the card
 };

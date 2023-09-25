@@ -3,7 +3,7 @@
 int main() {
 
     // CREATE THE WINDOW AND SET THE FRAME RATE LIMIT TO 60 FPS IN ORDER TO SAVE RESOURCES
-    sf::RenderWindow window(sf::VideoMode(1280, 720), "UNO Alpha 1.4.5");
+    sf::RenderWindow window(sf::VideoMode(1280, 720), "UNO Alpha 1.5.0");
     window.setFramerateLimit(60);
 
     // CREATE THE GAME OBJECT

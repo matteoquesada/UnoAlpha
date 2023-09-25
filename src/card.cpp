@@ -8,39 +8,36 @@ using namespace sf;
 // Constructor to initialize a card with a given color and number
 Card::Card(const std::string& color, int number) : color(color), number(number) {
     // Initialize other members as needed
+    switch(number){
+    case -1: type = "Reverse"; break;
+    case -2: type = "Plus2"; break;
+    case -3: type = "Skip"; break;
+    case -4: type = "Plus4"; break;
+    case -5: type = "Rumble"; break;
+    default: type = "Common"; break;
+    }
     setTexture(); // Set the card's texture during construction
 }
+
+// Constructor to initialize a card with a given color and special type
+
 
 // Function to set the card's texture based on its color and number
 void Card::setTexture() {
     // Construct the texture filename based on color and number
     std::string filename = "assets/cards/";
-
-    if (number == -1) {
-        // Special card without a number
-        filename += "specialRumble.png";
-    }
-    else if (number == -2) {
-        // Another special card without a number
-        filename += "specialPlus.png";
-    }
-    else {
-        // Convert the color to a lowercase string for the filename
-        std::string lowercaseColor = color;
-        std::transform(lowercaseColor.begin(), lowercaseColor.end(), lowercaseColor.begin(), ::tolower);
-
-        filename += lowercaseColor;
-
-        if (lowercaseColor != "red" && lowercaseColor != "blue" && lowercaseColor != "yellow" && lowercaseColor != "green") {
-            // Handle unsupported colors
-            filename += "special";
+    filename += color;
+    std::cout<<type<<std::endl;
+    if (type != "Common") {
+        filename += type;
         }
-
-        // Add the number to the filename
+    
+    else {
         filename += std::to_string(number);
-        filename += ".png";
     }
 
+    filename += ".png";
+    std::cout << filename << std::endl;
     // Load and assign the texture
     if (texture.loadFromFile(filename)) {
         std::cout << "Loaded texture from: " << filename << std::endl;
