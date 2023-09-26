@@ -10,6 +10,7 @@ public:
     void addToPoints(int points);  // Add points to the player's total
     int getHandSize() const;  // Get the size of the player's hand
     void displayHand(sf::RenderWindow& window);
+    //Card* Player::handleClick(const sf::Vector2f& mousePosition);
 
 private:
     Deck hand;  // Player's hand (deck of cards)

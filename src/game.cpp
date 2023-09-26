@@ -195,9 +195,7 @@ void Game::handleInGamePVE(RenderWindow& window) {
 		// Render the game
 		window.clear();
 		window.draw(wallpaperInGameSprite);
-		std::cout << "Stamos aquic" << std::endl;
-		player.displayHand(window); // Display player's hand HERE
-		// Display everything you want to render
+		player.displayHand(window); // Display the player's hand
 		window.display();
 
 		// For now, we'll exit the game loop after a certain condition (just for testing)

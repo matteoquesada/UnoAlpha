@@ -28,6 +28,9 @@ public:
     // Copy assignment operator
     Card& operator=(const Card& other);
 
+    // Function to get the card's size
+    sf::Vector2u Card::getSize() const;
+
 private:
     sf::Texture texture; // Texture for the card
     std::string type;

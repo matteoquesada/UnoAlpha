@@ -77,3 +77,8 @@ Card& Card::operator=(const Card& other) {
     }
     return *this;
 }
+
+sf::Vector2u Card::getSize() const {
+    return texture.getSize();
+}
+

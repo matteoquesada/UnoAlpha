@@ -23,6 +23,9 @@ public:
     void displayDeck(sf::RenderWindow& window);
 
     void fillDeck();
+
+    int isClicked(sf::RenderWindow& window);
+
 private:
 
     void addCard(const std::string& color, int number, int count);

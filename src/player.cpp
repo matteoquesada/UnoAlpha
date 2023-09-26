@@ -53,3 +53,11 @@ int Player::getHandSize() const {
 void Player::displayHand(sf::RenderWindow& window) {
     hand.displayDeck(window);
 }
+
+
+// handle click on card
+//Card* Player::handleClick(const sf::Vector2f& mousePosition) {
+
+//}
+
+
