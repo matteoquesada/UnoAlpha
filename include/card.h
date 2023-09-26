@@ -31,10 +31,16 @@ public:
     // Function to get the card's size
     sf::Vector2u Card::getSize() const;
 
+    // Function to perform a card action
+    void action();
+
+    bool isSpecial() const;
+
 private:
     sf::Texture texture; // Texture for the card
     std::string type;
     std::string color;   // Color of the card
+    sf::Sprite sprite;
     int number;          // Number of the card
 };
 

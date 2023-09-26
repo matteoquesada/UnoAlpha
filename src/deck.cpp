@@ -85,7 +85,7 @@ Card Deck::drawCard() {
 }
 
 // DISPLAY THE ENTIRE DECK ON THE WINDOW AND HANDLE MOUSE INTERACTION
-void Deck::displayDeck(sf::RenderWindow& window) {
+void Deck::displayDeck(RenderWindow& window) {
     // GET THE WIDTH AND HEIGHT OF THE CARD
     const float cardWidth = cards[0].getTexture().getSize().x;
     const float cardHeight = cards[0].getTexture().getSize().y;
@@ -120,14 +120,14 @@ void Deck::displayDeck(sf::RenderWindow& window) {
             // Example action: Highlight the card
             cardSprite.setColor(sf::Color(255, 255, 255, 200));
 
-            if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
+            if (Mouse::isButtonPressed(Mouse::Left)) {
                 // Set the clicked card index to the current card index
                 clickedCardIndex = cardIndex;
             }
         }
         else {
             // Reset the card's color if the mouse is not over it
-            cardSprite.setColor(sf::Color(255, 255, 255, 255));
+            cardSprite.setColor(Color(255, 255, 255, 255));
         }
 
         window.draw(cardSprite);
