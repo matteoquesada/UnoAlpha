@@ -9,9 +9,17 @@ using namespace sf;
 // DECK CONSTRUCTOR
 
 Deck::Deck() {
-    // INITIALIZE THE MAIN DECK WITH ALL CARDS, INCLUDING SPECIAL ONES
-    std::string colors[4] = { "red", "blue", "yellow", "green" };
+    // Initialize the deck as empty
+    //int totalCards = 0; // INITIALIZE THE TOTAL NUMBER OF CARDS TO 0 (DEBUG)
 
+    // No need to fill the deck here; it starts empty
+    // Debug print
+    // std::cout << "Total number of cards: " << totalCards << std::endl;
+}
+
+// Fill the deck with cards, including special ones
+void Deck::fillDeck() {
+    std::string colors[4] = { "red", "blue", "yellow", "green" };
     int totalCards = 0; // INITIALIZE THE TOTAL NUMBER OF CARDS TO 0 (DEBUG)
 
     for (int i = 0; i < 4; i++) {
@@ -28,8 +36,8 @@ Deck::Deck() {
             }
         }
     }
-    // DEBUG PRINT
-    //std::cout << "Total number of cards: " << totalCards << std::endl;
+    // Debug print
+    // std::cout << "Total number of cards: " << totalCards << std::endl;
 }
 
 // Helper function to add cards with the same color and number
@@ -63,13 +71,16 @@ void Deck::shuffle() {
 // DRAW AND REMOVE THE TOP CARD FROM THE DECK
 Card Deck::drawCard() {
     if (!cards.empty()) {
+        // Get the top card from the deck
         Card topCard = cards.back();
+        // Remove the top card from the deck
         cards.pop_back();
+        // Return the drawn card
         return topCard;
     }
     else {
-        // HANDLE THE CASE WHEN THE DECK IS EMPTY
-        return Card("EMPTY", -1); // YOU CAN CREATE A SPECIAL "EMPTY" CARD
+        // Handle the case when the deck is empty by returning a special "EMPTY" card
+        return Card("EMPTY", -1); // You can create a special "EMPTY" card
     }
 }
 
@@ -77,18 +88,32 @@ Card Deck::drawCard() {
 void Deck::displayDeck(sf::RenderWindow& window) {
     const float cardWidth = cards[0].getTexture().getSize().x;
     const float cardHeight = cards[0].getTexture().getSize().y;
-    float yOffset = 7.0;
-    float leftXOffset = 20.0;
-    const float cardSpacing = 10.0f;
+    float leftXOffset = 22.0;
+    float yOffset = 615.0;
+
+    const float cardSpacing = 57.0f;
     for (Card& card : cards) {
         sf::Sprite cardSprite;
         cardSprite.setTexture(card.getTexture());
         cardSprite.setPosition(leftXOffset, yOffset);
-        cardSprite.setScale(0.2f, 0.2f);
+        cardSprite.setScale(1.0f, 1.0f);
         window.draw(cardSprite);
         leftXOffset += cardSpacing;
     }
 }
+
+void Deck::addCard(const Card& card) {
+    cards.push_back(card);
+}
+
+size_t Deck::getSize() const {
+    return cards.size();
+}
+
+const std::vector<Card>& Deck::getCards() const {
+    return cards;
+}
+
 
 
 

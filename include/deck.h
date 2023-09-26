@@ -13,10 +13,16 @@ public:
     // Function to draw and remove the top card from the deck
     Card drawCard();
 
+    void addCard(const Card& card);
+
+    size_t getSize() const;
+
+    const std::vector<Card>& Deck::getCards() const;
+
     // Function to display the entire deck on the window
     void displayDeck(sf::RenderWindow& window);
 
-
+    void fillDeck();
 private:
 
     void addCard(const std::string& color, int number, int count);
