@@ -109,7 +109,7 @@ void Deck::handleDeck(RenderWindow& window, bool isControllable, int& pointerToT
     for (int cardIndex = 0; cardIndex < cards.size(); cardIndex++) {
         Card& card = cards[cardIndex];
         Sprite cardSprite;
-        float cardSpacing;;
+        float cardSpacing;
 
         
 
@@ -165,9 +165,6 @@ void Deck::handleDeck(RenderWindow& window, bool isControllable, int& pointerToT
         // PERFORM AN ACTION BASED ON THE CARD'S NUMBER, COLOR, AND CHARACTERISTICS
 
         cardAction(cards[clickedCardIndex], playerHand, opponentHand, stashDeck, mainDeck, pointerToTurn);
-
-        // INCREASES THE TURN COUNTER
-        pointerToTurn = pointerToTurn + 1;
     }
 }
 
