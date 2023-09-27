@@ -194,7 +194,7 @@ void Game::handleInGamePVE(RenderWindow& window) {
 		// Render the game
 		window.clear();
 		window.draw(wallpaperInGameSprite);
-		player.handleHand(window, 22., 600, true); // Display the player's hand
+		player.handleHand(window, 22.0, 615.0, true); // Display the player's hand
 		entity.handleHand(window, 22.0, 7.0, false); // DISPLAY THE ENTITY'S HAND (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
 		mainDeck.displayDeck(window, 22.0, 40.0); // Display the main deck
 		window.display();

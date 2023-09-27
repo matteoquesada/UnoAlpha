@@ -81,15 +81,13 @@ Card Deck::drawCard() {
 }
 
 // DISPLAY THE ENTIRE DECK ON THE WINDOW AND HANDLE MOUSE INTERACTION
+// EL SIGUIENTE CODIGO ES UNA BELLEZA DE LA INGENIERIA DE SOFTWARE Y LA PROGRAMACION
 void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool isControllable) {
     // GET THE WIDTH AND HEIGHT OF THE CARD
     const float cardWidth = cards[0].getTexture().getSize().x; // GETS THE WITH OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME WIDTH)
     const float cardHeight = cards[0].getTexture().getSize().y; // GETS THE HEIGHT OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME HEIGHT)
-
-    // SET THE SPACING BETWEEN CARDS
     
-
-    // Initialize a variable to keep track of the clicked card index
+    // INITIALIZE THE CLICKED CARD INDEX TO -1
     int clickedCardIndex = -1;
 
     // LOOP THROUGH THE CARDS IN THE DECK
@@ -99,21 +97,24 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
         Card& card = cards[cardIndex];
         Sprite cardSprite;
         float cardSpacing;;
-
+        // SET THE CARD'S TEXTURE AND POSITION IF THE DECK IS CONTROLLABLE
+        // ELSE SET THE CARD'S BACK TEXTURE, SCALE IT AND SET ITS POSITION IN ORDER TO DISPLAY IT ON THE UPPER PART OF THE WINDOW
         if (isControllable) {
             cardSpacing = 56.0f;
             cardSprite.setTexture(card.getTexture());
         }
         else {
             cardSpacing = 29.0f;
-            cardSprite.setTexture(card.getBackTexture());
+            cardSprite.setTexture(card.getBackTexture()); // SET THE CARD'S BACK TEXTURE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             cardSprite.setScale(0.5f, 0.5f);
         }
 
+        // SET THE CARD'S POSITION
         cardSprite.setPosition(xOffset, yOffset);
 
+        // CHECK IF THE DECK IS CONTROLLABLE
         if (isControllable) {
-            // CHECK IF THE MOUSE IS OVER THE CARD
+            // CHECK IF THE MOUSE IS OVER THE CARD IF THE DECK IS CONTROLLABLE
             sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
             sf::FloatRect cardBounds = cardSprite.getGlobalBounds();
             bool isMouseOverCard = cardBounds.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
@@ -134,13 +135,13 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
             }
         }
 
+        // DRAWS THE CARD SPRITE ON THE WINDOW AND INCREMENTS THE X OFFSET DEPENDIN ON THE CARD SPACING
         window.draw(cardSprite);
         xOffset += cardSpacing;
     }
-    // CHECKS IF A CARD WAS CLICKED BY ANALYZING THE CLICKED CARD INDEX
+    // CHECKS IF A CARD WAS CLICKED BY ANALYZING THE CLICKED CARD INDEX (ONLY CHANGES FROM -1 IF THE DECK IS CONTROLLABLE)
     if (clickedCardIndex != -1 && isControllable) {
-        std::cout << "Clicked on card " << clickedCardIndex << "!" << std::endl;
-        //HERE
+        std::cout << "Clicked on card index " << clickedCardIndex << "!" << std::endl;
     }
 }
 
