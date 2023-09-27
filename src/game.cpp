@@ -171,39 +171,56 @@ void Game::handleGameModeMenu(RenderWindow& window) {
 
 // FUNCTION TO HANDLE THE IN GAME PVE INSIDE THE GAME LOOP
 void Game::handleInGamePVE(RenderWindow& window) {
-	// Create the game instance
+	// CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
+	int turn = 1;
 
+	// CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE GAME OVER STATE
+	bool gameOver = false;
+
+	// CREATE A DECK OBJECT AND FILL IT WITH CARDS AND SHUFFLE IT
 	Deck mainDeck;
 	mainDeck.fillDeck();
 	mainDeck.shuffle();
 
-	// Create player and entity instances
+	// CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
 	Player player;
 	Player entity;
 
-	// Draw initial hands for the player and entity
-	player.drawInitialHand(mainDeck, 7); // Draw 10 cards for the player
-	entity.drawInitialHand(mainDeck, 7); // Draw 10 cards for the entity
+	// DRAW 7 CARDS FOR THE PLAYER AND THE ENTITY
+	player.drawInitialHand(mainDeck, 7);
+	entity.drawInitialHand(mainDeck, 7);
 
-	bool gameOver = false;
-
-	// Start the game loop
+	// START THE GAME LOOP
 	while (window.isOpen() && !gameOver) {
-		// Handle user input (e.g., playing cards, quitting the game
+		std::cout << "Current turn: " << turn << std::endl;	
+		// CHECK IF THE PLAYER'S TURN IS OVER
+		if (turn % 2 == 0) {
+			window.clear();
+			window.draw(wallpaperInGameSprite);
+			player.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
+			entity.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			
+		}
+		else {
+			window.clear();
+			window.draw(wallpaperInGameSprite);
+			player.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			entity.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+		}
+		//std::cout<<"Exited a turn"<<std::endl;
 
-		// Render the game
-		window.clear();
-		window.draw(wallpaperInGameSprite);
-		player.handleHand(window, 22.0, 615.0, true); // Display the player's hand
-		entity.handleHand(window, 22.0, 7.0, false); // DISPLAY THE ENTITY'S HAND (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
-		mainDeck.displayDeck(window, 22.0, 40.0); // Display the main deck
+		// DISPLAY THE MAIN DECK AS DEBUG 
+		mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
+
+		// DISPLAY THE MAIN WINDOW
 		window.display();
 
-		// For now, we'll exit the game loop after a certain condition (just for testing)
+		// GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)
 		if (player.getHandSize() == 1) {
 			gameOver = true;
 		}
 	}
-	// Game over logic (e.g., display a win/lose message, return to the main menu, etc.)
+	// GAME OVER SCREEN
+	window.clear();
 }
 

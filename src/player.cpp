@@ -54,8 +54,8 @@ int Player::getHandSize() const {
    //. hand.handleDeck(window);
 //}
 
-void Player::handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable) {
-    hand.handleDeck(window, xOffset, yOffset, isControllable);
+void Player::handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn) {
+    hand.handleDeck(window, xOffset, yOffset, isControllable, pointerToTurn);
 }
 
 

@@ -22,7 +22,7 @@ public:
     // Function to display the entire deck on the window
     //void handleDeck(sf::RenderWindow& window);
 
-    void handleDeck(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable);
+    void handleDeck(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn);
 
     void displayDeck(sf::RenderWindow& window, float xOffset, float yOffset);
 
@@ -31,7 +31,7 @@ public:
     int isClicked(sf::RenderWindow& window);
 
 private:
-
+    sf::Clock Deck::clickCooldown;
     void addCard(const std::string& color, int number, int count);
     void addSpecialCards(const std::string& color);
     std::vector<Card> cards; // A vector to store the cards in the deck

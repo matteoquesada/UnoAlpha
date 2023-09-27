@@ -82,7 +82,11 @@ Card Deck::drawCard() {
 
 // DISPLAY THE ENTIRE DECK ON THE WINDOW AND HANDLE MOUSE INTERACTION
 // EL SIGUIENTE CODIGO ES UNA BELLEZA DE LA INGENIERIA DE SOFTWARE Y LA PROGRAMACION
-void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool isControllable) {
+void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn) {
+
+    // INITIALIZE THE CLICK COOLDOWN
+    
+
     // GET THE WIDTH AND HEIGHT OF THE CARD
     const float cardWidth = cards[0].getTexture().getSize().x; // GETS THE WITH OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME WIDTH)
     const float cardHeight = cards[0].getTexture().getSize().y; // GETS THE HEIGHT OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME HEIGHT)
@@ -127,6 +131,7 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
                     // SETS THE CLICKED CARD INDEX IF THE MOUSE IS CLICKED OVER THE CARD
                     // clickedCardIndex RESETS TO -1 AFTER EACH LOOP ITERATION
                     clickedCardIndex = cardIndex;
+                    
                 }
             }
             else {
@@ -142,6 +147,14 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
     // CHECKS IF A CARD WAS CLICKED BY ANALYZING THE CLICKED CARD INDEX (ONLY CHANGES FROM -1 IF THE DECK IS CONTROLLABLE)
     if (clickedCardIndex != -1 && isControllable) {
         std::cout << "Clicked on card index " << clickedCardIndex << "!" << std::endl;
+        // MAKE THE GAME WAIT FOR 1 SECOND
+        sf::sleep(sf::seconds(1.0f));
+        // PERFORM AN ACTION BASED ON THE CARD'S NUMBER
+        // 
+        // TO DO: IMPLEMENT THE ACTION FOR EACH CARD
+        // 
+        // INCREASES THE TURN COUNTER
+        pointerToTurn = pointerToTurn + 1;
     }
 }
 

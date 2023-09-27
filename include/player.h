@@ -12,7 +12,7 @@ public:
     //void displayHand(sf::RenderWindow& window);
     //void displayHand(sf::RenderWindow& window, float xOffset, float yOffset);
 
-    void handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable);
+    void handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn);
     //Card* Player::handleClick(const sf::Vector2f& mousePosition);
 
 private:
