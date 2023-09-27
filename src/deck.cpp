@@ -84,9 +84,6 @@ Card Deck::drawCard() {
 // EL SIGUIENTE CODIGO ES UNA BELLEZA DE LA INGENIERIA DE SOFTWARE Y LA PROGRAMACION
 void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn) {
 
-    // INITIALIZE THE CLICK COOLDOWN
-    
-
     // GET THE WIDTH AND HEIGHT OF THE CARD
     const float cardWidth = cards[0].getTexture().getSize().x; // GETS THE WITH OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME WIDTH)
     const float cardHeight = cards[0].getTexture().getSize().y; // GETS THE HEIGHT OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME HEIGHT)
@@ -140,7 +137,7 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
             }
         }
 
-        // DRAWS THE CARD SPRITE ON THE WINDOW AND INCREMENTS THE X OFFSET DEPENDIN ON THE CARD SPACING
+        // DRAWS THE CARD'S SPRITE ON THE WINDOW AND INCREMENTS THE X OFFSET DEPENDIN ON THE CARD SPACING
         window.draw(cardSprite);
         xOffset += cardSpacing;
     }

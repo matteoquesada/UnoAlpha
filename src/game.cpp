@@ -73,9 +73,13 @@ void Game::run(RenderWindow& window) {
 		case 1:
 			handleGameModeMenu(window);
 			break;
+		case 2:
+			HandleInGamePVP(window);
+			break;
 		case 3:
 			handleInGamePVE(window);
 			break;
+
 		}
 	}
 }
@@ -192,25 +196,25 @@ void Game::handleInGamePVE(RenderWindow& window) {
 
 	// START THE GAME LOOP
 	while (window.isOpen() && !gameOver) {
-		std::cout << "Current turn: " << turn << std::endl;	
+		//std::cout << "Current turn: " << turn << std::endl;	
 		// CHECK IF THE PLAYER'S TURN IS OVER
 		if (turn % 2 == 0) {
 			window.clear();
 			window.draw(wallpaperInGameSprite);
-			player.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
-			entity.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			player.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			entity.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+
 			
 		}
 		else {
 			window.clear();
 			window.draw(wallpaperInGameSprite);
-			player.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
-			entity.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+			player.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
+			entity.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
 		}
-		//std::cout<<"Exited a turn"<<std::endl;
 
 		// DISPLAY THE MAIN DECK AS DEBUG 
-		mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
+		//mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
 
 		// DISPLAY THE MAIN WINDOW
 		window.display();
@@ -222,5 +226,59 @@ void Game::handleInGamePVE(RenderWindow& window) {
 	}
 	// GAME OVER SCREEN
 	window.clear();
+}
+
+void Game::HandleInGamePVP(sf::RenderWindow& window) {
+	// CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
+	int turn = 1;
+
+	// CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE GAME OVER STATE
+	bool gameOver = false;
+
+	// CREATE A DECK OBJECT AND FILL IT WITH CARDS AND SHUFFLE IT
+	Deck mainDeck;
+	mainDeck.fillDeck();
+	mainDeck.shuffle();
+
+	// CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
+	Player player;
+	Player entity;
+
+	// DRAW 7 CARDS FOR THE PLAYER AND THE ENTITY
+	player.drawInitialHand(mainDeck, 7);
+	entity.drawInitialHand(mainDeck, 7);
+
+	// START THE GAME LOOP
+	while (window.isOpen() && !gameOver) {
+		//std::cout << "Current turn: " << turn << std::endl;	
+		// CHECK IF THE PLAYER'S TURN IS OVER
+		if (turn % 2 == 0) {
+			window.clear();
+			window.draw(wallpaperInGameSprite);
+			player.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) = UPPER CORNER ->AND SCALE BY 0.5 BY DEFAULT<-
+			entity.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE (OFFSET BY 22.0, 615.0) = LOWER CORNER
+		}
+		else {
+			window.clear();
+			window.draw(wallpaperInGameSprite);
+			player.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE (OFFSET BY 22.0, 615.0) = LOWER CORNER
+			entity.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) = UPPER CORNER ->AND SCALE BY 0.5 BY DEFAULT<-
+		}
+
+		// DISPLAY THE MAIN DECK AS DEBUG 
+		//mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
+
+		// DISPLAY THE MAIN WINDOW
+		window.display();
+
+		// GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)
+		if (player.getHandSize() == 1) {
+			gameOver = true;
+		}
+	}
+	// GAME OVER SCREEN
+	window.clear();
+
+
 }
 

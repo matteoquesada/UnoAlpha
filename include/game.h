@@ -27,4 +27,5 @@ private:
 	void handleMainMenu(sf::RenderWindow& window);
 	void handleGameModeMenu(sf::RenderWindow& window);
 	void handleInGamePVE(sf::RenderWindow& window);
+	void HandleInGamePVP(sf::RenderWindow& window);
 };

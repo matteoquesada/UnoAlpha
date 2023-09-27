@@ -1,23 +1,26 @@
 ﻿C:\Program Files\Microsoft Visual Studio\2022\Community\MSBuild\Microsoft\VC\v170\Microsoft.CppBuild.targets(517,5): warning MSB8004: Output Directory does not end with a trailing slash.  This build instance will add the slash as it is required to allow proper evaluation of the Output Directory.
   deck.cpp
-C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(91,60): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(88,60): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(91,27): warning C4244: 'initializing': conversion from 'T' to 'const float', possible loss of data
+C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(88,27): warning C4244: 'initializing': conversion from 'T' to 'const float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(92,61): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
+C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(89,61): warning C4244: 'initializing': conversion from 'T' to 'float', possible loss of data
           with
           [
               T=unsigned int
           ]
-C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(92,28): warning C4244: 'initializing': conversion from 'T' to 'const float', possible loss of data
+C:\Users\B450M R5\Documents\GitHub\unoCpp\src\deck.cpp(89,28): warning C4244: 'initializing': conversion from 'T' to 'const float', possible loss of data
           with
           [
               T=unsigned int
           ]
+  game.cpp
+  main.cpp
+  Generating Code...
   unogame-CPP.vcxproj -> C:\Users\B450M R5\Documents\GitHub\unoCpp\build\unogame-CPP.exe
