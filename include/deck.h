@@ -21,6 +21,8 @@ public:
 
     void initializeStash(Deck& mainDeck);
 
+    void removeCard(const Card& cardToRemove);
+
     bool isCardPlayable(const Card& playedCard, const Card& targetCard);
 
     Card getTopCard();

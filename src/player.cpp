@@ -1,12 +1,12 @@
 #include "../include/player.h"
 #include <iostream>
 
-// Constructor
+// CONSTRUCTOR TO INITIALIZE THE PLAYER WITH DEFAULT POINTS
 Player::Player() : points(0) {
     // Initialize the player's hand (optional)
 }
 
-// Draw initial cards from the main deck
+// FUNCTION TO DRAW INITIAL CARDS FOR THE PLAYER FROM THE MAIN DECK
 void Player::drawInitialHand(Deck& mainDeck, int numCards) {
     for (int i = 0; i < numCards; ++i) {
         Card card = mainDeck.drawCard();
@@ -14,7 +14,7 @@ void Player::drawInitialHand(Deck& mainDeck, int numCards) {
     }
 }
 
-// Play a card from the player's hand
+// FUNCTION TO PLAY A CARD FROM THE PLAYER'S HAND
 void Player::playCard(Card card) {
     // Implement your game's card-playing logic here
     // You would typically check if the card is valid to play and then remove it from the player's hand
@@ -27,44 +27,38 @@ void Player::playCard(Card card) {
     // return false; // Return false if the card cannot be played
 }
 
-// Draw a card from the main deck
+// FUNCTION TO DRAW A CARD FOR THE PLAYER FROM THE MAIN DECK
 void Player::drawCard(Deck& mainDeck) {
     Card card = mainDeck.drawCard();
     hand.addCard(card);
 }
 
-// Get the player's points
+// FUNCTION TO GET THE PLAYER'S CURRENT POINTS
 int Player::getPoints() const {
     return points;
 }
 
-// Add points to the player's total
+// FUNCTION TO ADD POINTS TO THE PLAYER'S TOTAL
 void Player::addToPoints(int pointsToAdd) {
     points += pointsToAdd;
 }
 
-// Get the size of the player's hand
+// FUNCTION TO GET THE SIZE OF THE PLAYER'S HAND
 int Player::getHandSize() const {
     return static_cast<int>(hand.getSize());
 }
 
-
-// Display the player's hand on the screen
-//void Player::displayHand(sf::RenderWindow& window) {
-   //. hand.handleDeck(window);
-//}
-
+// FUNCTION TO HANDLE THE PLAYER'S HAND ON THE SCREEN
 void Player::handleHand(sf::RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck) {
     hand.handleDeck(window, isControllable, pointerToTurn, playerHand, opponentHand, stashDeck, mainDeck);
 }
 
-Deck& Player::getHand(){
+// FUNCTION TO GET THE PLAYER'S HAND
+Deck& Player::getHand() {
     return hand;
 }
 
-// handle click on card
-//Card* Player::handleClick(const sf::Vector2f& mousePosition) {
-
-//}
-
-
+// (OPTIONAL) FUNCTION TO HANDLE CLICK ON CARD
+// Card* Player::handleClick(const sf::Vector2f& mousePosition) {
+//     ...
+// }

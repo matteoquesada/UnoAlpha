@@ -1,74 +1,57 @@
 #include <SFML/Graphics.hpp>
-#include "../include/card.h" // Include your Card class header
-#include "../include/deck.h" // Include your Deck class header
+#include "../include/card.h" // Card class header
+#include "../include/deck.h" // Deck class header
 #include <iostream>
 #include <random>
+
 using namespace sf;
 
-// DEFINE THE DECK CLASS TO MANAGE A COLLECTION OF CARDS
-// DECK CONSTRUCTOR
+// CONSTRUCTOR: INITIALIZE AN EMPTY DECK
+Deck::Deck() {}
 
-Deck::Deck() {
-    // Initialize the deck as empty
-    //int totalCards = 0; // INITIALIZE THE TOTAL NUMBER OF CARDS TO 0 (DEBUG)
-
-    // No need to fill the deck here; it starts empty
-    // Debug print
-    // std::cout << "Total number of cards: " << totalCards << std::endl;
-}
-
-// Fill the deck with cards, including special ones
+// FILL THE DECK WITH STANDARD UNO CARDS
 void Deck::fillDeck() {
     std::string colors[4] = { "red", "blue", "yellow", "green" };
-    int totalCards = 0; // INITIALIZE THE TOTAL NUMBER OF CARDS TO 0 (DEBUG)
 
     for (int i = 0; i < 4; i++) {
         for (int number = 0; number <= 10; ++number) {
             if (number == 0) {
-                addCard(colors[i], number, 1); // Add one zero card to the main deck per color
+                addCard(colors[i], number, 1);
             }
             else if (number == 10) {
                 addSpecialCards(colors[i]);
-                totalCards += 8; // INCREMENT THE COUNT BY 2 FOR THE SPECIAL CARDS
             }
             else {
-                addCard(colors[i], number, 2); // Add two cards of the same color and number
+                addCard(colors[i], number, 2);
             }
         }
     }
-    // Debug print
-    // std::cout << "Total number of cards: " << totalCards << std::endl;
 }
 
-// Helper function to add cards with the same color and number
+// ADD STANDARD CARDS TO THE DECK
 void Deck::addCard(const std::string& color, int number, int count) {
     for (int i = 0; i < count; i++) {
         cards.emplace_back(color, number);
     }
 }
 
-// Helper function to add special cards for a color
+// ADD SPECIAL CARDS TO THE DECK
 void Deck::addSpecialCards(const std::string& color) {
-    addCard(color, -1, 2); // Add two Reverse cards
-    addCard(color, -2, 2); // Add two Plus2 cards
-    addCard(color, -3, 2); // Add two Skip cards
-    addCard("wild", -4, 1); // Add one Rumble card
-    addCard("wild", -5, 1); // Add one Rumble card
+    addCard(color, -1, 2); // Reverse
+    addCard(color, -2, 2); // Plus2
+    addCard(color, -3, 2); // Skip
+    addCard("wild", -4, 1); // Wild
+    addCard("wild", -5, 1); // Wild Draw Four
 }
 
 // SHUFFLE THE DECK
 void Deck::shuffle() {
-    // USE A RANDOM DEVICE AS A SOURCE OF RANDOMNESS
     std::random_device rd;
-
-    // USE THE RANDOM DEVICE TO SEED THE RANDOM NUMBER GENERATOR
     std::mt19937 gen(rd());
-
-    // SHUFFLE THE CARDS USING THE RANDOM NUMBER GENERATOR
     std::shuffle(cards.begin(), cards.end(), gen);
 }
 
-// DRAW AND REMOVE THE TOP CARD FROM THE DECK
+// DRAW A CARD FROM THE DECK
 Card Deck::drawCard() {
     if (!cards.empty()) {
         Card topCard = cards.back();
@@ -76,199 +59,106 @@ Card Deck::drawCard() {
         return topCard;
     }
     else {
-        return Card("EMPTY", -1); // You can create a special "EMPTY" card
+        return Card("EMPTY", -1);
     }
 }
 
-// DISPLAY THE ENTIRE DECK ON THE WINDOW AND HANDLE MOUSE INTERACTION
-// EL SIGUIENTE CODIGO ES UNA BELLEZA DE LA INGENIERIA DE SOFTWARE Y LA PROGRAMACION
+// DISPLAY DECK, HANDLE MOUSE INTERACTIONS
 void Deck::handleDeck(RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck) {
-
-    // GET THE WIDTH AND HEIGHT OF THE CARD
-    const float cardWidth = cards[0].getTexture().getSize().x; // GETS THE WITH OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME WIDTH)
-    const float cardHeight = cards[0].getTexture().getSize().y; // GETS THE HEIGHT OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME HEIGHT)
-    
-    // INITIALIZE THE CLICKED CARD INDEX TO -1
+    const float cardSpacing = isControllable ? 56.0f : 29.0f;
+    const float yOffset = isControllable ? 615.0f : 7.0f;
     int clickedCardIndex = -1;
-
-    // LOOP THROUGH THE CARDS IN THE DECK
-    // CREATES A SPRITE FOR EACH CARD AND DISPLAYS IT ON THE WINDOW
-    // THE SHORT-LIVED CARD SPRITE IS DESTROYED AFTER EACH LOOP ITERATION HOWEVER AFTER BEING DRAWN ON THE WINDOW
-    float xOffset;
-    float yOffset;
-
-    if(isControllable){
-		xOffset = 22.0;
-		yOffset = 615.0;
-	}
-	else{
-		xOffset = 22.0;
-		yOffset = 7.0;
-	}
+    float xOffset = 22.0f;
 
     for (int cardIndex = 0; cardIndex < cards.size(); cardIndex++) {
         Card& card = cards[cardIndex];
-        Sprite cardSprite;
-        float cardSpacing;
-
-        
-
-        // SET THE CARD'S TEXTURE AND POSITION IF THE DECK IS CONTROLLABLE
-        // ELSE SET THE CARD'S BACK TEXTURE, SCALE IT AND SET ITS POSITION IN ORDER TO DISPLAY IT ON THE UPPER PART OF THE WINDOW
-        if (isControllable) {
-            cardSpacing = 56.0f;
-            cardSprite.setTexture(card.getTexture());
-        }
-        else {
-            cardSpacing = 29.0f;
-            cardSprite.setTexture(card.getBackTexture()); // SET THE CARD'S BACK TEXTURE <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-            cardSprite.setScale(0.5f, 0.5f);
-        }
-
-        // SET THE CARD'S POSITION
+        Sprite cardSprite = isControllable ? Sprite(card.getTexture()) : Sprite(card.getBackTexture());
+        if (!isControllable) cardSprite.setScale(0.5f, 0.5f);
         cardSprite.setPosition(xOffset, yOffset);
+        xOffset += cardSpacing;
 
-        // CHECK IF THE DECK IS CONTROLLABLE
         if (isControllable) {
-            // CHECK IF THE MOUSE IS OVER THE CARD IF THE DECK IS CONTROLLABLE
             sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-            sf::FloatRect cardBounds = cardSprite.getGlobalBounds();
-            bool isMouseOverCard = cardBounds.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-
-            if (isMouseOverCard) {
-                // MAKES THE CARD DARKER IF THE MOUSE IS OVER IT
-                cardSprite.setColor(sf::Color(200, 200, 200, 255));
-
-                if (Mouse::isButtonPressed(Mouse::Left)) {
-                    // SETS THE CLICKED CARD INDEX IF THE MOUSE IS CLICKED OVER THE CARD
-                    // clickedCardIndex RESETS TO -1 AFTER EACH LOOP ITERATION
-                    clickedCardIndex = cardIndex;
-                    
-                }
+            if (cardSprite.getGlobalBounds().contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y))) {
+                cardSprite.setColor(Color(200, 200, 200, 255));
+                if (Mouse::isButtonPressed(Mouse::Left)) clickedCardIndex = cardIndex;
             }
             else {
-                // SETS THE CARD TO ITS ORIGINAL COLOR IF THE MOUSE IS NOT OVER IT
                 cardSprite.setColor(Color(255, 255, 255, 255));
             }
         }
 
-        // DRAWS THE CARD'S SPRITE ON THE WINDOW AND INCREMENTS THE X OFFSET DEPENDIN ON THE CARD SPACING
         window.draw(cardSprite);
-        xOffset += cardSpacing;
     }
-    // CHECKS IF A CARD WAS CLICKED BY ANALYZING THE CLICKED CARD INDEX (ONLY CHANGES FROM -1 IF THE DECK IS CONTROLLABLE)
+
     if (clickedCardIndex != -1 && isControllable) {
-        std::cout << "Clicked on card index " << clickedCardIndex << "!" << std::endl;
-        // MAKE THE GAME WAIT FOR 1 SECOND
 
         sf::sleep(sf::seconds(1.0f));
-        // PERFORM AN ACTION BASED ON THE CARD'S NUMBER, COLOR, AND CHARACTERISTICS
-
         cardAction(cards[clickedCardIndex], playerHand, opponentHand, stashDeck, mainDeck, pointerToTurn);
     }
 }
 
-
-
-
+// GET THE TOP CARD OF THE DECK
 Card Deck::getTopCard() {
-    if (!cards.empty()) {
-        std::cout << "Top card is of stash is: " << cards.back().getColor() << " " << cards.back().getNumber() << std::endl;
-        return cards.back();
-
-    }
-    else {
-        // Return a special "EMPTY" card or handle this case as needed
-        return Card("null", -404);
-    }
+    return !cards.empty() ? cards.back() : Card("null", -404);
 }
 
+// CHECK IF A CARD CAN BE PLAYED
 bool Deck::isCardPlayable(const Card& playedCard, const Card& targetCard) {
-    // Check if the color or number matches
-    std::cout<< "Played Card: " << playedCard.getColor() << " " << playedCard.getNumber() << std::endl;
-    std::cout<< "Target Card: " << targetCard.getColor() << " " << targetCard.getNumber() << std::endl;
+    std::cout<<playedCard.getColor()<<" "<<playedCard.getNumber()<<std::endl;
+    std::cout<<targetCard.getColor()<<" "<<targetCard.getNumber()<<std::endl;
     return (playedCard.getColor() == targetCard.getColor() || playedCard.getNumber() == targetCard.getNumber());
 }
 
-
-// EXECUTE AN ACTION BASED ON THE CARD'S PARAMETERS
+// HANDLE CARD ACTIONS WHEN PLAYED
 void Deck::cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck, int& pointerToTurn) {
-    // Get the card's color and number
-    std::string cardColor = card.getColor();
-    int cardNumber = card.getNumber();
-
-    // Check if the card is special (e.g., Reverse, Plus2, Skip)
-    bool specialCard = card.isSpecial();
-
-    // Getting the top card
-    Card topCard = stashDeck.getTopCard();
-
-    if (isCardPlayable(card, topCard)) {
-        std::cout << "Card is playable!!" << std::endl;
-        if (specialCard) {
-            // Handle special card actions
-            if (cardColor == "red") {
-                std::cout << "Red Card Action: No special action, just change the color to red" << std::endl;
-            }
-            // ... Handle other special card actions ...
-        }
-        else {
-            // Handle regular number card actions
-            if (cardColor == "red") {
-                std::cout << "Red Card Action: Common action for all red cards" << std::endl;
-            }
-            // ... Handle other color card actions ...
-
-            // Additional actions based on card number
-            if (cardNumber == 0) {
-                std::cout << "Number 0 Card Action: No special action" << std::endl;
-            }
-            else if (cardNumber >= 1 && cardNumber <= 9) {
-                std::cout << "Number " << cardNumber << " Card Action: No special action" << std::endl;
-            }
-        }
-        // Increment the turn counter only when the card is playable
+    if (isCardPlayable(card, stashDeck.getTopCard())) {
+        std::cout<<"Card is playable!!!!"<<std::endl;
+        // CARD LOGIC GOES HERE, FOLLOW THE RULES OF UNO AND IMPLEMENT THEM HERE
+        // INCREASE THE TURN POINTER AFTER THE CARD ACTION IS DONE
         pointerToTurn++;
+        
     }
-    else {
-        std::cout << "You can't play that card" << std::endl;
-    }
-
-    // Perform actions based on color, number, and characteristics
 }
 
-
+// DISPLAY THE DECK ON THE SCREEN
 void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
-    // SET THE SPACING BETWEEN CARDS
     const float cardSpacing = 57.0f;
-
-    // LOOP THROUGH THE CARDS IN THE DECK
-    for (int cardIndex = 0; cardIndex < cards.size(); cardIndex++) {
-        Card& card = cards[cardIndex];
-        Sprite cardSprite;
-        cardSprite.setTexture(card.getTexture());
+    for (Card& card : cards) {
+        Sprite cardSprite(card.getTexture());
         cardSprite.setPosition(xOffset, yOffset);
-
         window.draw(cardSprite);
         xOffset += cardSpacing;
     }
 }
-// FILL THE STASH WITH ONE CARD FROM THE MAIN DECK
+
+// INITIALIZE THE STASH WITH A CARD FROM THE MAIN DECK
 void Deck::initializeStash(Deck& mainDeck) {
     cards.push_back(mainDeck.drawCard());
-    std::cout<< "Stash initialized with " << cards[0].getColor() << " " << cards[0].getNumber() << std::endl;
 }
 
-
-
+// ADD A CARD TO THE DECK
 void Deck::addCard(const Card& card) {
     cards.push_back(card);
 }
 
+// GET THE SIZE OF THE DECK
 size_t Deck::getSize() const {
     return cards.size();
 }
 
+// GET THE CARDS IN THE DECK
 const std::vector<Card>& Deck::getCards() const {
     return cards;
+}
+
+// REMOVE A CARD FROM THE DECK
+void Deck::removeCard(const Card& cardToRemove) {
+    cards.erase(std::remove_if(cards.begin(), cards.end(),
+        [&cardToRemove](const Card& card) {
+            return card.getColor() == cardToRemove.getColor() &&
+                card.getNumber() == cardToRemove.getNumber() &&
+                card.getType() == cardToRemove.getType();
+        }),
+        cards.end());
 }
