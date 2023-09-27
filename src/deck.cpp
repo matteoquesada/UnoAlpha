@@ -12,7 +12,6 @@ Deck::Deck() {}
 // FILL THE DECK WITH STANDARD UNO CARDS
 void Deck::fillDeck() {
     std::string colors[4] = { "red", "blue", "yellow", "green" };
-
     for (int i = 0; i < 4; i++) {
         for (int number = 0; number <= 10; ++number) {
             if (number == 0) {
@@ -59,7 +58,8 @@ Card Deck::drawCard() {
         return topCard;
     }
     else {
-        return Card("EMPTY", -1);
+        std::cout<<"Deck is empty!"<<std::endl;
+        return Card("null", -404);
     }
 }
 
@@ -113,11 +113,44 @@ bool Deck::isCardPlayable(const Card& playedCard, const Card& targetCard) {
 // HANDLE CARD ACTIONS WHEN PLAYED
 void Deck::cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck, int& pointerToTurn) {
     if (isCardPlayable(card, stashDeck.getTopCard())) {
-        std::cout<<"Card is playable!!!!"<<std::endl;
-        // CARD LOGIC GOES HERE, FOLLOW THE RULES OF UNO AND IMPLEMENT THEM HERE
-        // INCREASE THE TURN POINTER AFTER THE CARD ACTION IS DONE
+        std::cout << "Card is playable!!!!" << std::endl;
+
+        // Add the card to the stash
+        stashDeck.addCard(card);
+
+        // Remove the card from the player's hand
+        playerHand.removeCard(card);
+
+        // Implement Uno rules
+        switch (card.getNumber()) {
+        case -1: // Reverse
+            // Assuming you have a way to reverse turn order, implement it here
+            break;
+        case -2: // Plus2
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            break;
+        case -3: // Skip
+            // Skip opponent's turn. If you're increasing pointerToTurn at the end, 
+            // you might want to increase it by 2 here to skip the opponent's turn.
+            pointerToTurn += 2;
+            return;
+        case -4: // Wild Plus4
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            // You might want to add color selection logic for Wild cards
+            break;
+        case -5: // Rumble (I assume this is Wild)
+            // You might want to add color selection logic for Wild cards
+            break;
+        default:
+            break;
+        }
+
+        // Increase the turn pointer
         pointerToTurn++;
-        
     }
 }
 

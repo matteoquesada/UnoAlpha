@@ -58,6 +58,11 @@ Deck& Player::getHand() {
     return hand;
 }
 
+// FUNCTION TO DRAW A CARD FROM THE MAIN DECK
+void Player::addCardToHand(Card& card) {
+    hand.addCard(card);
+}
+
 // (OPTIONAL) FUNCTION TO HANDLE CLICK ON CARD
 // Card* Player::handleClick(const sf::Vector2f& mousePosition) {
 //     ...

@@ -14,7 +14,7 @@ public:
     //void displayHand(sf::RenderWindow& window, float xOffset, float yOffset);
 
     void handleHand(sf::RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck);
-
+    void addCardToHand(Card& card);
     Deck& getHand();
 
 private:

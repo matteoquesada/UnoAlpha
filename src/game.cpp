@@ -195,15 +195,14 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
         if (turn % 2 == 0) {
             window.clear();
             window.draw(wallpaperInGameSprite);
+            handleDrawButton(window, entity, mainDeck, turn);
             player.handleHand(window, false, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
             entity.handleHand(window, true, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
-
-
         }
         else {
             window.clear();
             window.draw(wallpaperInGameSprite);
-            window.draw(drawButtonSprite);
+            handleDrawButton(window, player, mainDeck, turn);
             player.handleHand(window, true, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
             entity.handleHand(window, false, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
         }
@@ -211,7 +210,6 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
         // DISPLAY THE MAIN DECK AS DEBUG 
         //mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
 
-        // DISPLAY THE MAIN WINDOW
         window.display();
 
         // GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)
@@ -221,4 +219,25 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
     }
     // GAME OVER SCREEN
     window.clear();
+}
+
+// FUNCTION TO HANDLE THE DRAW BUTTON DEPENDING ON THE CURRENT TURN
+void Game::handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Deck& mainDeck, int turn) {
+    Event event{};
+    Vector2i mousePos = Mouse::getPosition(window);
+    bool mouseOnDrawButton = drawButtonSprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+    bool buttonPressed = false;
+    buttonPressed = event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left;
+    if (mouseOnDrawButton) {
+        drawButtonSprite.setColor(Color(200, 200, 200, 255));
+        if (Mouse::isButtonPressed(Mouse::Left)) {
+            std::cout << "Button pressed" << std::endl;
+            sf::sleep(sf::seconds(1.0f));
+            currentPlayer.drawCard(mainDeck);
+        }
+    }
+    else {
+        drawButtonSprite.setColor(Color(255, 255, 255, 255));
+    }
+    window.draw(drawButtonSprite);
 }

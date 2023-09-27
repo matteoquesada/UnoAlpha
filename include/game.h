@@ -30,4 +30,5 @@ private:
 	void handleGameModeMenu(sf::RenderWindow& window);
 	void handleInGamePVE(sf::RenderWindow& window);
 	void HandleInGamePVP(sf::RenderWindow& window);
+	void handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Deck& mainDeck, int turn);
 };
