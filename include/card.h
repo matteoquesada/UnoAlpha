@@ -1,6 +1,6 @@
 #pragma once
-
 #include <SFML/Graphics.hpp> // Include the SFML library for graphics
+
 
 class Card {
 public:

@@ -17,6 +17,7 @@ public:
 	void run(sf::RenderWindow& window);
 	Card& operator=(const Card& other);
 private:
+	Deck mainDeck;
 	// PRIVATE VARIABLES
 	Deck deck; // DECK OBJECT TO BE USED IN THE GAME INSIDE THE GAME CLASS
 	int currentDisplay; // INTEGER TO KEEP TRACK OF THE CURRENT DISPLAY

@@ -17,6 +17,14 @@ public:
 
     size_t getSize() const;
 
+    void cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck);
+
+    void initializeStash(Deck& mainDeck);
+
+    bool isCardPlayable(const Card& playedCard, const Card& targetCard);
+
+    Card getTopCard();
+
     const std::vector<Card>& Deck::getCards() const;
 
     // Function to display the entire deck on the window

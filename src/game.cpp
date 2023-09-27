@@ -29,6 +29,7 @@ Sound clickLogoSound;
 // CONSTRACTOR TO INITIALIZE THE GAME OBJECT AND SHUFFLE THE DECK
 Game::Game() : currentDisplay(0) {
 	initializeResources();
+
 	//deck.fillDeck();
 	//deck.shuffle();
 }
@@ -62,10 +63,11 @@ void Game::initializeResources() {
 // FUNCTION TO RUN THE GAME USED IN THE MAIN FUNCTION
 // USES CURRENT DISPLAY VARIABLE TO KEEP TRACK OF THE CURRENT DISPLAY AND CALLS THE CORRESPONDING FUNCTION
 void Game::run(RenderWindow& window) {
+	mainDeck.fillDeck();
+	mainDeck.shuffle();
 	std::cout << "Game instance started successfully... Displaying window." << std::endl;
 
 	while (window.isOpen()) {
-		std:: cout << "estamos aqui main" << std::endl;
 		switch (currentDisplay) {
 		case 0:
 			handleMainMenu(window);
@@ -182,9 +184,6 @@ void Game::handleInGamePVE(RenderWindow& window) {
 	bool gameOver = false;
 
 	// CREATE A DECK OBJECT AND FILL IT WITH CARDS AND SHUFFLE IT
-	Deck mainDeck;
-	mainDeck.fillDeck();
-	mainDeck.shuffle();
 
 	Deck stashDeck;
 
@@ -239,12 +238,11 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
 	bool gameOver = false;
 
 	// CREATE A DECK OBJECT AND FILL IT WITH CARDS AND SHUFFLE IT
-	Deck mainDeck;
-	mainDeck.fillDeck();
-	mainDeck.shuffle();
+
+	
 
 	Deck stashDeck;
-
+	stashDeck.initializeStash(mainDeck);
 
 	// CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
 	Player player;

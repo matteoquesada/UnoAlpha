@@ -164,12 +164,82 @@ void Deck::handleDeck(RenderWindow& window, bool isControllable, int& pointerToT
         sf::sleep(sf::seconds(1.0f));
         // PERFORM AN ACTION BASED ON THE CARD'S NUMBER
 
-        
+        cardAction(cards[clickedCardIndex], playerHand, opponentHand, stashDeck, mainDeck);
 
         // INCREASES THE TURN COUNTER
         pointerToTurn = pointerToTurn + 1;
     }
 }
+
+
+bool Deck::isCardPlayable(const Card& playedCard, const Card& targetCard) {
+    // Check if the color or number matches
+    return (playedCard.getColor() == targetCard.getColor() || playedCard.getNumber() == targetCard.getNumber());
+}
+
+
+// EXECUTE AN ACTION BASED ON THE CARD'S PARAMETERS
+void Deck::cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck) {
+    // Get the card's color and number
+    std::string cardColor = card.getColor();
+    int cardNumber = card.getNumber();
+
+    // Check if the card is special (e.g., Reverse, Plus2, Skip)
+    bool specialCard = card.isSpecial();
+
+    if (isCardPlayable(card, stashDeck.getTopCard())) {
+        if (specialCard) {
+            // Handle special card actions
+            if (cardColor == "red") {
+                std::cout << "Red Card Action: No special action, just change the color to red" << std::endl;
+            }
+            else if (cardColor == "blue") {
+                std::cout << "Blue Card Action: No special action, just change the color to blue" << std::endl;
+            }
+            else if (cardColor == "yellow") {
+                std::cout << "Yellow Card Action: No special action, just change the color to yellow" << std::endl;
+            }
+            else if (cardColor == "green") {
+                std::cout << "Green Card Action: No special action, just change the color to green" << std::endl;
+            }
+            else if (cardColor == "wild") {
+                std::cout << "Wild Card Action: Player can change the color to any color" << std::endl;
+            }
+        }
+        else {
+            // Handle regular number card actions
+            if (cardColor == "red") {
+                std::cout << "Red Card Action: Common action for all red cards" << std::endl;
+            }
+            else if (cardColor == "blue") {
+                std::cout << "Blue Card Action: Common action for all blue cards" << std::endl;
+            }
+            else if (cardColor == "yellow") {
+                std::cout << "Yellow Card Action: Common action for all yellow cards" << std::endl;
+            }
+            else if (cardColor == "green") {
+                std::cout << "Green Card Action: Common action for all green cards" << std::endl;
+            }
+
+            // Additional actions based on card number
+            if (cardNumber == 0) {
+                std::cout << "Number 0 Card Action: No special action" << std::endl;
+            }
+            else if (cardNumber >= 1 && cardNumber <= 9) {
+                std::cout << "Number " << cardNumber << " Card Action: No special action" << std::endl;
+            }
+        }
+
+
+    }
+
+
+    // Perform actions based on color, number, and characteristics
+
+
+
+}
+
 
 void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
     // SET THE SPACING BETWEEN CARDS
@@ -184,6 +254,20 @@ void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
 
         window.draw(cardSprite);
         xOffset += cardSpacing;
+    }
+}
+// FILL THE STASH WITH ONE CARD FROM THE MAIN DECK
+void Deck::initializeStash(Deck& mainDeck) {
+    cards.push_back(mainDeck.drawCard());
+}
+
+Card Deck::getTopCard(){
+    if (!cards.empty()) {
+        return cards.back();
+    }
+    else {
+        // Return a special "EMPTY" card or handle this case as needed
+        return Card("null", -404);
     }
 }
 

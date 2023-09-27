@@ -92,10 +92,7 @@ sf::Vector2u Card::getSize() const {
 }
 
 // Function to perform a card action
-void Card::action() {
-    // Perform the card's action
-    // ...
-}
+
 
 // Function to check if the card is a special card
 bool Card::isSpecial() const {
