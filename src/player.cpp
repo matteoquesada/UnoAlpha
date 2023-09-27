@@ -50,8 +50,12 @@ int Player::getHandSize() const {
 
 
 // Display the player's hand on the screen
-void Player::displayHand(sf::RenderWindow& window) {
-    hand.displayDeck(window);
+//void Player::displayHand(sf::RenderWindow& window) {
+   //. hand.handleDeck(window);
+//}
+
+void Player::handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable) {
+    hand.handleDeck(window, xOffset, yOffset, isControllable);
 }
 
 

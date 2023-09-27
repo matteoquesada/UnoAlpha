@@ -71,77 +71,95 @@ void Deck::shuffle() {
 // DRAW AND REMOVE THE TOP CARD FROM THE DECK
 Card Deck::drawCard() {
     if (!cards.empty()) {
-        // Get the top card from the deck
         Card topCard = cards.back();
-        // Remove the top card from the deck
         cards.pop_back();
-        // Return the drawn card
         return topCard;
     }
     else {
-        // Handle the case when the deck is empty by returning a special "EMPTY" card
         return Card("EMPTY", -1); // You can create a special "EMPTY" card
     }
 }
 
 // DISPLAY THE ENTIRE DECK ON THE WINDOW AND HANDLE MOUSE INTERACTION
-void Deck::displayDeck(RenderWindow& window) {
+void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool isControllable) {
     // GET THE WIDTH AND HEIGHT OF THE CARD
-    const float cardWidth = cards[0].getTexture().getSize().x;
-    const float cardHeight = cards[0].getTexture().getSize().y;
+    const float cardWidth = cards[0].getTexture().getSize().x; // GETS THE WITH OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME WIDTH)
+    const float cardHeight = cards[0].getTexture().getSize().y; // GETS THE HEIGHT OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME HEIGHT)
 
-    // SET THE OFFSETS FOR THE FIRST CARD
-    float leftXOffset = 22.0;
-    float yOffset = 615.0;
     // SET THE SPACING BETWEEN CARDS
-    const float cardSpacing = 57.0f;
+    
 
     // Initialize a variable to keep track of the clicked card index
     int clickedCardIndex = -1;
 
     // LOOP THROUGH THE CARDS IN THE DECK
+    // CREATES A SPRITE FOR EACH CARD AND DISPLAYS IT ON THE WINDOW
+    // THE SHORT-LIVED CARD SPRITE IS DESTROYED AFTER EACH LOOP ITERATION HOWEVER AFTER BEING DRAWN ON THE WINDOW
     for (int cardIndex = 0; cardIndex < cards.size(); cardIndex++) {
         Card& card = cards[cardIndex];
-        sf::Sprite cardSprite;
-        cardSprite.setTexture(card.getTexture());
-        cardSprite.setPosition(leftXOffset, yOffset);
-        cardSprite.setScale(1.0f, 1.0f);
+        Sprite cardSprite;
+        float cardSpacing;;
 
-        // CHECK IF THE MOUSE IS OVER THE CARD
-        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-        sf::FloatRect cardBounds = cardSprite.getGlobalBounds();
-        bool isMouseOverCard = cardBounds.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-
-        if (isMouseOverCard) {
-            // Handle the case where the mouse is over this card
-            // For example, you can highlight the card or trigger an action
-            // when the player clicks on it.
-
-            // Example action: Highlight the card
-            cardSprite.setColor(sf::Color(255, 255, 255, 200));
-
-            if (Mouse::isButtonPressed(Mouse::Left)) {
-                // Set the clicked card index to the current card index
-                clickedCardIndex = cardIndex;
-            }
+        if (isControllable) {
+            cardSpacing = 56.0f;
+            cardSprite.setTexture(card.getTexture());
         }
         else {
-            // Reset the card's color if the mouse is not over it
-            cardSprite.setColor(Color(255, 255, 255, 255));
+            cardSpacing = 29.0f;
+            cardSprite.setTexture(card.getBackTexture());
+            cardSprite.setScale(0.5f, 0.5f);
+        }
+
+        cardSprite.setPosition(xOffset, yOffset);
+
+        if (isControllable) {
+            // CHECK IF THE MOUSE IS OVER THE CARD
+            sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+            sf::FloatRect cardBounds = cardSprite.getGlobalBounds();
+            bool isMouseOverCard = cardBounds.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+
+            if (isMouseOverCard) {
+                // MAKES THE CARD DARKER IF THE MOUSE IS OVER IT
+                cardSprite.setColor(sf::Color(200, 200, 200, 255));
+
+                if (Mouse::isButtonPressed(Mouse::Left)) {
+                    // SETS THE CLICKED CARD INDEX IF THE MOUSE IS CLICKED OVER THE CARD
+                    // clickedCardIndex RESETS TO -1 AFTER EACH LOOP ITERATION
+                    clickedCardIndex = cardIndex;
+                }
+            }
+            else {
+                // SETS THE CARD TO ITS ORIGINAL COLOR IF THE MOUSE IS NOT OVER IT
+                cardSprite.setColor(Color(255, 255, 255, 255));
+            }
         }
 
         window.draw(cardSprite);
-        leftXOffset += cardSpacing;
+        xOffset += cardSpacing;
     }
-
-    // Check if a card was clicked
-    if (clickedCardIndex != -1) {
-        // Perform an action with the clicked card using clickedCardIndex
+    // CHECKS IF A CARD WAS CLICKED BY ANALYZING THE CLICKED CARD INDEX
+    if (clickedCardIndex != -1 && isControllable) {
         std::cout << "Clicked on card " << clickedCardIndex << "!" << std::endl;
-        // You can also use clickedCardIndex to access the specific card in your collection
-        // cards[clickedCardIndex].performAction();
+        //HERE
     }
 }
+
+void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
+    // SET THE SPACING BETWEEN CARDS
+    const float cardSpacing = 57.0f;
+
+    // LOOP THROUGH THE CARDS IN THE DECK
+    for (int cardIndex = 0; cardIndex < cards.size(); cardIndex++) {
+        Card& card = cards[cardIndex];
+        Sprite cardSprite;
+        cardSprite.setTexture(card.getTexture());
+        cardSprite.setPosition(xOffset, yOffset);
+
+        window.draw(cardSprite);
+        xOffset += cardSpacing;
+    }
+}
+
 
 
 
@@ -156,11 +174,3 @@ size_t Deck::getSize() const {
 const std::vector<Card>& Deck::getCards() const {
     return cards;
 }
-
-
-
-
-
-
-
-

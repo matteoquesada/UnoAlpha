@@ -5,10 +5,13 @@
 
 using namespace sf;
 
-// Constructor to initialize a card with a given color and number
+// CONSTRUCTOR TO INITIALIZE A CARD WITH A GIVEN COLOR AND NUMBER
 Card::Card(const std::string& color, int number) : color(color), number(number) {
-    // Initialize other members as needed
-    switch(number){
+    // INITIALIZE THE CARD'S COLOR AND NUMBER DEPENDING ON THE PARAMETERS PASSED TO THE CONSTRUCTOR
+    // SPECIAL CARDS HAVE A NEGATIVE NUMBER IN ORDER TO BE DIFFERENTIATED FROM THE COMMON CARDS
+    // THE NEGATIVE NUMBER IS USED TO DETERMINE THE TYPE OF THE SPECIAL CARD
+    // THE TYPE OF THE SPECIAL CARD IS USED TO CONSTRUCT THE FILENAME OF THE TEXTURE AND DIFFERENTIATE IT FROM THE COMMON CARDS (DEFAULT CASE)
+    switch (number) {
     case -1: type = "Reverse"; break;
     case -2: type = "Plus2"; break;
     case -3: type = "Skip"; break;
@@ -16,29 +19,29 @@ Card::Card(const std::string& color, int number) : color(color), number(number) 
     case -5: type = "Rumble"; break;
     default: type = "Common"; break;
     }
-    setTexture(); // Set the card's texture during construction
+    setCardTexture(); // SET THE CARD'S TEXTURE BASED ON ITS COLOR AND NUMBER OR TYPE IF != "Common"
 }
 
-// Constructor to initialize a card with a given color and special type
 
 
-// Function to set the card's texture based on its color and number
-void Card::setTexture() {
-    // Construct the texture filename based on color and number
+
+// FUNCTION TO SET THE CARD'S TEXTURE BASED ON ITS COLOR AND NUMBER OR TYPE IF != "Common"
+void Card::setCardTexture() {
+    // CONSTRUCT THE FILENAME OF THE TEXTURE BASED ON THE CARD'S COLOR AND NUMBER OR TYPE IF != "Common"
+    // BY CONCATENATING THE COLOR AND NUMBER OR TYPE IF != "Common" TO THE FILENAME OF THE TEXTURE
     std::string filename = "assets/cards/";
     filename += color;
-    //std::cout<<type<<std::endl; DEBUG
+
     if (type != "Common") {
         filename += type;
-        }
-    
+    }
     else {
         filename += std::to_string(number);
     }
 
     filename += ".png";
-    //std::cout << filename << std::endl; DEBUG
-    // Load and assign the texture
+
+    // LOAD THE TEXTURE FROM THE FILENAME AND PRINT A MESSAGE TO THE CONSOLE IF THE TEXTURE WAS LOADED SUCCESSFULLY OR NOT
     if (texture.loadFromFile(filename)) {
         std::cout << "Loaded texture from directory: " << filename << std::endl;
     }
@@ -47,9 +50,15 @@ void Card::setTexture() {
     }
 }
 
-// Function to get the card's texture
+// FUNCTION TO GET THE CARD'S TEXTURE
 sf::Texture& Card::getTexture() {
     return texture;
+}
+
+// FUNCTION TO GET THE CARD'S BACK TEXTURE (WORKS THE SAME FOR ALL CARDS)
+sf::Texture& Card::getBackTexture() {
+    backTexture.loadFromFile("assets/cards/backFace.png");
+    return backTexture;
 }
 
 // Function to get the card's number
@@ -63,7 +72,7 @@ std::string Card::getColor() const {
 }
 
 std::string Card::getType() const {
-	return type;
+    return type;
 }
 
 // Copy assignment operator implementation
@@ -84,11 +93,11 @@ sf::Vector2u Card::getSize() const {
 
 // Function to perform a card action
 void Card::action() {
-	// Perform the card's action
-	// ...
+    // Perform the card's action
+    // ...
 }
 
 // Function to check if the card is a special card
 bool Card::isSpecial() const {
-	return number < 0;
+    return number < 0;
 }

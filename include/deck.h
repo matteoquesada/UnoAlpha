@@ -20,7 +20,11 @@ public:
     const std::vector<Card>& Deck::getCards() const;
 
     // Function to display the entire deck on the window
-    void displayDeck(sf::RenderWindow& window);
+    //void handleDeck(sf::RenderWindow& window);
+
+    void handleDeck(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable);
+
+    void displayDeck(sf::RenderWindow& window, float xOffset, float yOffset);
 
     void fillDeck();
 
@@ -32,5 +36,3 @@ private:
     void addSpecialCards(const std::string& color);
     std::vector<Card> cards; // A vector to store the cards in the deck
 };
-
-

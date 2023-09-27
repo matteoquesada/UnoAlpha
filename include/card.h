@@ -11,7 +11,7 @@ public:
 
 
     // Function to set the card's texture based on its color and number
-    void setTexture();
+    void setCardTexture();
 
     // Function to get the card's texture
     sf::Texture& getTexture();
@@ -29,7 +29,9 @@ public:
     Card& operator=(const Card& other);
 
     // Function to get the card's size
-    sf::Vector2u Card::getSize() const;
+    sf::Vector2u getSize() const;
+
+    sf::Texture& getBackTexture();
 
     // Function to perform a card action
     void action();
@@ -41,7 +43,6 @@ private:
     std::string type;
     std::string color;   // Color of the card
     sf::Sprite sprite;
+    sf::Texture backTexture;
     int number;          // Number of the card
 };
-
-
