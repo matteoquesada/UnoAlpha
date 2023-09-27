@@ -17,7 +17,7 @@ public:
 
     size_t getSize() const;
 
-    void cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck);
+    void cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck, int& pointerToTurn);
 
     void initializeStash(Deck& mainDeck);
 

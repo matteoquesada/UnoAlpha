@@ -65,6 +65,9 @@ void Game::initializeResources() {
 void Game::run(RenderWindow& window) {
 	mainDeck.fillDeck();
 	mainDeck.shuffle();
+
+	stashDeck.initializeStash(mainDeck);
+	std::cout<< "Stash size: " << stashDeck.getSize() << std::endl;
 	std::cout << "Game instance started successfully... Displaying window." << std::endl;
 
 	while (window.isOpen()) {
@@ -177,7 +180,7 @@ void Game::handleGameModeMenu(RenderWindow& window) {
 
 // FUNCTION TO HANDLE THE IN GAME PVE INSIDE THE GAME LOOP
 void Game::handleInGamePVE(RenderWindow& window) {
-	// CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
+	/*// CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
 	int turn = 1;
 
 	// CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE GAME OVER STATE
@@ -227,7 +230,7 @@ void Game::handleInGamePVE(RenderWindow& window) {
 		}
 	}
 	// GAME OVER SCREEN
-	window.clear();
+	window.clear();*/
 }
 
 void Game::HandleInGamePVP(sf::RenderWindow& window) {
@@ -236,13 +239,6 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
 
 	// CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE GAME OVER STATE
 	bool gameOver = false;
-
-	// CREATE A DECK OBJECT AND FILL IT WITH CARDS AND SHUFFLE IT
-
-	
-
-	Deck stashDeck;
-	stashDeck.initializeStash(mainDeck);
 
 	// CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
 	Player player;
