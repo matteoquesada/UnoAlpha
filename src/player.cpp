@@ -54,10 +54,13 @@ int Player::getHandSize() const {
    //. hand.handleDeck(window);
 //}
 
-void Player::handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn) {
-    hand.handleDeck(window, xOffset, yOffset, isControllable, pointerToTurn);
+void Player::handleHand(sf::RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck) {
+    hand.handleDeck(window, isControllable, pointerToTurn, playerHand, opponentHand, stashDeck, mainDeck);
 }
 
+Deck& Player::getHand(){
+    return hand;
+}
 
 // handle click on card
 //Card* Player::handleClick(const sf::Vector2f& mousePosition) {

@@ -22,7 +22,7 @@ public:
     // Function to display the entire deck on the window
     //void handleDeck(sf::RenderWindow& window);
 
-    void handleDeck(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn);
+    void handleDeck(sf::RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck);
 
     void displayDeck(sf::RenderWindow& window, float xOffset, float yOffset);
 

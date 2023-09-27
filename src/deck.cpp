@@ -82,7 +82,7 @@ Card Deck::drawCard() {
 
 // DISPLAY THE ENTIRE DECK ON THE WINDOW AND HANDLE MOUSE INTERACTION
 // EL SIGUIENTE CODIGO ES UNA BELLEZA DE LA INGENIERIA DE SOFTWARE Y LA PROGRAMACION
-void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn) {
+void Deck::handleDeck(RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck) {
 
     // GET THE WIDTH AND HEIGHT OF THE CARD
     const float cardWidth = cards[0].getTexture().getSize().x; // GETS THE WITH OF THE FIRST CARD IN THE DECK (ALL CARDS HAVE THE SAME WIDTH)
@@ -94,10 +94,25 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
     // LOOP THROUGH THE CARDS IN THE DECK
     // CREATES A SPRITE FOR EACH CARD AND DISPLAYS IT ON THE WINDOW
     // THE SHORT-LIVED CARD SPRITE IS DESTROYED AFTER EACH LOOP ITERATION HOWEVER AFTER BEING DRAWN ON THE WINDOW
+    float xOffset;
+    float yOffset;
+
+    if(isControllable){
+		xOffset = 22.0;
+		yOffset = 615.0;
+	}
+	else{
+		xOffset = 22.0;
+		yOffset = 7.0;
+	}
+
     for (int cardIndex = 0; cardIndex < cards.size(); cardIndex++) {
         Card& card = cards[cardIndex];
         Sprite cardSprite;
         float cardSpacing;;
+
+        
+
         // SET THE CARD'S TEXTURE AND POSITION IF THE DECK IS CONTROLLABLE
         // ELSE SET THE CARD'S BACK TEXTURE, SCALE IT AND SET ITS POSITION IN ORDER TO DISPLAY IT ON THE UPPER PART OF THE WINDOW
         if (isControllable) {
@@ -145,11 +160,12 @@ void Deck::handleDeck(RenderWindow& window, float xOffset, float yOffset, bool i
     if (clickedCardIndex != -1 && isControllable) {
         std::cout << "Clicked on card index " << clickedCardIndex << "!" << std::endl;
         // MAKE THE GAME WAIT FOR 1 SECOND
+
         sf::sleep(sf::seconds(1.0f));
         // PERFORM AN ACTION BASED ON THE CARD'S NUMBER
-        // 
-        // TO DO: IMPLEMENT THE ACTION FOR EACH CARD
-        // 
+
+        
+
         // INCREASES THE TURN COUNTER
         pointerToTurn = pointerToTurn + 1;
     }
@@ -170,9 +186,6 @@ void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
         xOffset += cardSpacing;
     }
 }
-
-
-
 
 void Deck::addCard(const Card& card) {
     cards.push_back(card);

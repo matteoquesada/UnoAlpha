@@ -1,5 +1,6 @@
 #include "deck.h"  // Include your Deck class header
 
+
 class Player {
 public:
     Player();  // Constructor
@@ -12,8 +13,9 @@ public:
     //void displayHand(sf::RenderWindow& window);
     //void displayHand(sf::RenderWindow& window, float xOffset, float yOffset);
 
-    void handleHand(sf::RenderWindow& window, float xOffset, float yOffset, bool isControllable, int& pointerToTurn);
-    //Card* Player::handleClick(const sf::Vector2f& mousePosition);
+    void handleHand(sf::RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck);
+
+    Deck& getHand();
 
 private:
     Deck hand;  // Player's hand (deck of cards)

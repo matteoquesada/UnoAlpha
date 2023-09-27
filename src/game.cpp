@@ -186,6 +186,9 @@ void Game::handleInGamePVE(RenderWindow& window) {
 	mainDeck.fillDeck();
 	mainDeck.shuffle();
 
+	Deck stashDeck;
+
+
 	// CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
 	Player player;
 	Player entity;
@@ -201,16 +204,16 @@ void Game::handleInGamePVE(RenderWindow& window) {
 		if (turn % 2 == 0) {
 			window.clear();
 			window.draw(wallpaperInGameSprite);
-			player.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
-			entity.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+			player.handleHand(window, false, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			entity.handleHand(window, true, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
 
 			
 		}
 		else {
 			window.clear();
 			window.draw(wallpaperInGameSprite);
-			player.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
-			entity.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			player.handleHand(window, true, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
+			entity.handleHand(window, false, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
 		}
 
 		// DISPLAY THE MAIN DECK AS DEBUG 
@@ -240,6 +243,9 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
 	mainDeck.fillDeck();
 	mainDeck.shuffle();
 
+	Deck stashDeck;
+
+
 	// CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
 	Player player;
 	Player entity;
@@ -255,14 +261,16 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
 		if (turn % 2 == 0) {
 			window.clear();
 			window.draw(wallpaperInGameSprite);
-			player.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) = UPPER CORNER ->AND SCALE BY 0.5 BY DEFAULT<-
-			entity.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE (OFFSET BY 22.0, 615.0) = LOWER CORNER
+			player.handleHand(window, false, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+			entity.handleHand(window, true, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+
+
 		}
 		else {
 			window.clear();
 			window.draw(wallpaperInGameSprite);
-			player.handleHand(window, 22.0, 615.0, true, turn); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE (OFFSET BY 22.0, 615.0) = LOWER CORNER
-			entity.handleHand(window, 22.0, 7.0, false, turn); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) = UPPER CORNER ->AND SCALE BY 0.5 BY DEFAULT<-
+			player.handleHand(window, true, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
+			entity.handleHand(window, false, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
 		}
 
 		// DISPLAY THE MAIN DECK AS DEBUG 
@@ -278,7 +286,5 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
 	}
 	// GAME OVER SCREEN
 	window.clear();
-
-
 }
 
