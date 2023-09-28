@@ -1,10 +1,5 @@
+# UNO in C++ BETA
 
+## Important Note
 
-Clone the Repository: Use the following command to clone the Uno Game repository to your local machine:
-
-bash
-Copy code
-git clone https://github.com/your-username/uno-game.git
-Build the Game: Navigate to the project directory and build the game using VS.
-
-# unoCpp
+**This project MUST BE COMPILED WITH THE WINDOWS LOCAL DEBUGGER.** Ensure you have the necessary setup and configurations in place before attempting to build and run the project.
