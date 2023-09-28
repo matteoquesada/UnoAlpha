@@ -1,25 +1,41 @@
-#include "deck.h"  // Include your Deck class header
-
+#include "deck.h"
 
 class Player {
 public:
-    Player();  // Constructor
-    void drawInitialHand(Deck& mainDeck, int numCards);  // Draw initial cards from the main deck
+    // CONSTRUCTOR
+    Player();
+ 
+    // DRAW INITIAL CARDS FROM THE MAIN DECK
+    void drawInitialHand(Deck& mainDeck, int numCards);
+
+    // PLAY A CARD
     void playCard(Card card);
-    void drawCard(Deck& mainDeck);  // Draw a card from the main deck
-    int getPoints() const;  // Get the player's points
-    void addToPoints(int points);  // Add points to the player's total
-    int getHandSize() const;  // Get the size of the player's hand
-    
 
-    //void displayHand(sf::RenderWindow& window);
-    //void displayHand(sf::RenderWindow& window, float xOffset, float yOffset);
+    // DRAW A CARD FROM THE MAIN DECK
+    void drawCard(Deck& mainDeck);
 
+    // GET THE PLAYER'S POINTS
+    int getPoints();
+
+    // SET THE PLAYER'S POINTS
+    void setPoints(int points);
+
+    // ADD POINTS TO THE PLAYER'S TOTAL
+    void addToPoints(int points);
+
+    // GET THE SIZE OF THE PLAYER'S HAND
+    int getHandSize() const;
+
+    // HANDLE THE PLAYER'S HAND INTERACTIONS AND DISPLAY
     void handleHand(sf::RenderWindow& window, bool isControllable, int& pointerToTurn, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck);
+
+    // ADD A CARD TO THE PLAYER'S HAND
     void addCardToHand(Card& card);
+
+    // GET THE PLAYER'S HAND
     Deck& getHand();
 
 private:
-    Deck hand;  // Player's hand (deck of cards)
-    int points;  // Player's points
+    Deck hand;  // PLAYER'S HAND (DECK OF CARDS)
+    int points;  // PLAYER'S POINTS
 };

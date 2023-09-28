@@ -1,5 +1,5 @@
 #include "../include/player.h"
-#include <iostream>
+
 
 // CONSTRUCTOR TO INITIALIZE THE PLAYER WITH DEFAULT POINTS
 Player::Player() : points(0) {
@@ -14,19 +14,6 @@ void Player::drawInitialHand(Deck& mainDeck, int numCards) {
     }
 }
 
-// FUNCTION TO PLAY A CARD FROM THE PLAYER'S HAND
-void Player::playCard(Card card) {
-    // Implement your game's card-playing logic here
-    // You would typically check if the card is valid to play and then remove it from the player's hand
-    // For example:
-    // if (isValidMove(card)) {
-    //     hand.removeCard(card);
-    //     // Process the card's effect and update the game state
-    //     return true; // Return true if the card was successfully played
-    // }
-    // return false; // Return false if the card cannot be played
-}
-
 // FUNCTION TO DRAW A CARD FOR THE PLAYER FROM THE MAIN DECK
 void Player::drawCard(Deck& mainDeck) {
     Card card = mainDeck.drawCard();
@@ -34,7 +21,7 @@ void Player::drawCard(Deck& mainDeck) {
 }
 
 // FUNCTION TO GET THE PLAYER'S CURRENT POINTS
-int Player::getPoints() const {
+int Player::getPoints(){
     return points;
 }
 
@@ -63,7 +50,7 @@ void Player::addCardToHand(Card& card) {
     hand.addCard(card);
 }
 
-// (OPTIONAL) FUNCTION TO HANDLE CLICK ON CARD
-// Card* Player::handleClick(const sf::Vector2f& mousePosition) {
-//     ...
-// }
+// FUNCTION TO SET THE PLAYER'S POINTS
+void Player::setPoints(int newPoints) {
+	points += newPoints;
+}

@@ -138,47 +138,52 @@ void Deck::cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& st
                 pointerToTurn++;
             }
         }
-		else if (card.isSpecial()) {
-			if (card.getNumber() == -1) {
-				std::cout << "Reverse card played!" << std::endl;
+        else if (card.isSpecial()) {
+            if (card.getNumber() == -1) {
+                std::cout << "Reverse card played!" << std::endl;
                 stashDeck.addCard(card);
                 playerHand.removeCard(card);
                 pointerToTurn++;
-			}
-			else if (card.getNumber() == -2) {
-				std::cout << "Plus 2 card played!" << std::endl;
-				std::cout << "Opponent draws 2 cards!" << std::endl;
-				for (int i = 0; i < 2; i++) {
-					opponentHand.addCard(mainDeck.drawCard());
-				}
+            }
+            else if (card.getNumber() == -2) {
+                std::cout << "Plus 2 card played!" << std::endl;
+                std::cout << "Opponent draws 2 cards!" << std::endl;
+                for (int i = 0; i < 2; i++) {
+                    opponentHand.addCard(mainDeck.drawCard());
+                }
                 stashDeck.addCard(card);
                 playerHand.removeCard(card);
                 pointerToTurn++;
-			}
-			else if (card.getNumber() == -3) {
-				std::cout << "Skip card played!" << std::endl;
+            }
+            else if (card.getNumber() == -3) {
+                std::cout << "Skip card played!" << std::endl;
                 stashDeck.addCard(card);
                 playerHand.removeCard(card);
-                
                 pointerToTurn += 2;
-			}
-		}
-		else {
+            }
+        }
+        else {
             if (card.getNumber() == 0) {
                 std::cout << "Zero card played!" << std::endl;
                 stashDeck.addCard(card);
                 playerHand.removeCard(card);
                 std::swap(playerHand, opponentHand);
-                pointerToTurn++;
-                
             }
             else {
-                std::cout << "Standard card played!" << std::endl;
-                stashDeck.addCard(card);
-                playerHand.removeCard(card);
-                pointerToTurn++;
+                if (card.getNumber() == 0) {
+                    std::cout << "Zero card played!" << std::endl;
+                    stashDeck.addCard(card);
+                    playerHand.removeCard(card);
+                    std::swap(playerHand, opponentHand);
+                }
+                else {
+                    std::cout << "Standard card played!" << std::endl;
+                    stashDeck.addCard(card);
+                    playerHand.removeCard(card);
+                    pointerToTurn++;
+                }
             }
-		}
+        }
     }
 }
 
@@ -193,7 +198,7 @@ void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
     for (Card& card : cards) {
         Sprite cardSprite(card.getTexture());
         cardSprite.setPosition(windowCenterX - cardSprite.getGlobalBounds().width / 2,
-            currentYOffset - cardSprite.getGlobalBounds().height / 2);
+        currentYOffset - cardSprite.getGlobalBounds().height / 2);
         window.draw(cardSprite);
         currentYOffset += cardSpacing;
     }
@@ -244,3 +249,7 @@ std::string Deck::getRandomColor() {
     std::uniform_int_distribution<> dist(0, 3);
     return colors[dist(gen)];
 }
+
+// DESTRUCTOR
+Deck::~Deck() {}
+

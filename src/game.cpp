@@ -1,5 +1,6 @@
 #include "../include/game.h"
 #include <iostream>
+#include "../include/deck.h"
 
 using namespace sf;
 
@@ -122,14 +123,18 @@ void Game::handleMainMenu(RenderWindow& window) {
 
 // FUNCTION TO HANDLE THE GAME MODE MENU
 void Game::handleGameModeMenu(RenderWindow& window) {
+    // CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE MOUSE POSITION ON THE BUTTONS (BECAUSE THE BUTTONS ARE SEPARATE SPRITES)
     bool mouseOnButtonPVP = false;
     bool mouseOnButtonPVE = false;
     Vector2i mousePos = Mouse::getPosition(window);
     mouseOnButtonPVP = buttonPVPSprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
     mouseOnButtonPVE = buttonPVESprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-    static bool buttonClicked = false;
+    static bool buttonClicked = false; // CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE BUTTON CLICKS -STATIC BECAUSE IT NEEDS TO KEEP ITS VALUE BETWEEN FUNCTION CALLS-
+
     Event event;
     while (window.pollEvent(event)) {
+
+        // CHECK IF THE MOUSE IS ON THE BUTTONS AND IF THE MOUSE BUTTON IS PRESSED
         if (event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left) {
             if (mouseOnButtonPVP) {
                 clickSound.play();
@@ -139,18 +144,24 @@ void Game::handleGameModeMenu(RenderWindow& window) {
                 currentDisplay = 2;
             }
             else if (mouseOnButtonPVE) {
+                clickSound.play();
                 buttonPVESprite.setColor(Color(100, 100, 100, 255));
                 std::cout << "Button PVE pressed" << std::endl;
                 buttonClicked = true;
                 currentDisplay = 3;
             }
         }
+        // CHECK IF THE MOUSE BUTTON IS RELEASED
         else if (event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left) {
+            // CHECK IF THE BUTTON WAS CLICKED AND THEN RESET THE BUTTON CLICKED VARIABLE IN ORDER TO ALLOW THE BUTTON TO BE CLICKED AGAIN
             if (buttonClicked) {
                 buttonClicked = false;
             }
         }
     }
+    // CHECK IF THE MOUSE IS ON THE BUTTONS AND IF THE BUTTON WAS CLICKED
+    // PURE COSMETIC CHANGES TO THE BUTTONS
+    // NOT NECESSARY FOR THE GAME TO WORK
     if (mouseOnButtonPVP && !buttonClicked) {
         buttonPVPSprite.setColor(Color(200, 200, 200, 255));
     }
@@ -163,6 +174,8 @@ void Game::handleGameModeMenu(RenderWindow& window) {
     else if (!mouseOnButtonPVE && !buttonClicked) {
         buttonPVESprite.setColor(Color(255, 255, 255, 255));
     }
+
+    // DRAW THE BUTTONS AND THE WALLPAPER
     window.clear();
     window.draw(wallpaperGameModeSprite);
     window.draw(buttonPVPSprite);
@@ -170,7 +183,7 @@ void Game::handleGameModeMenu(RenderWindow& window) {
     window.display();
 }
 
-// FUNCTION TO HANDLE THE IN-GAME PVE MODE
+// FUNCTION TO HANDLE THE IN-GAME PVE MODE (CURRENTLY IS NOT WORKING AND WORKS THE SAME AS THE PVP MODE)
 void Game::handleInGamePVE(RenderWindow& window) {
     // CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
     int turn = 1;
@@ -180,45 +193,40 @@ void Game::handleInGamePVE(RenderWindow& window) {
 
     // CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
     Player player;
-    Player entity;
+    Player player2;
 
     // DRAW 7 CARDS FOR THE PLAYER AND THE ENTITY
     player.drawInitialHand(mainDeck, 7);
-    entity.drawInitialHand(mainDeck, 7);
+    player2.drawInitialHand(mainDeck, 7);
 
-    // START THE GAME LOOP
+    // START THE BASE GAME ENGINE LOOP
     while (window.isOpen() && !gameOver) {
-        //std::cout << "Current turn: " << turn << std::endl;	
-        // CHECK IF THE PLAYER'S TURN IS OVER
+        // ENGINE LOGIC FOR SECOND PLAYER
         if (turn % 2 == 0) {
             window.clear();
             window.draw(wallpaperInGameSprite);
-            handleUnoButton(window, entity.getHand(), isUnoButton(window, entity.getHand()), gameOver);
-            handleDrawButton(window, entity, mainDeck, turn);
-            player.handleHand(window, false, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
-            entity.handleHand(window, true, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+            handleUnoButton(window, player2.getHand(), isUnoButton(window, player2.getHand()), gameOver);
+            handleDrawButton(window, player2, mainDeck, turn);
+            player.handleHand(window, false, turn, player.getHand(), player2.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+            player2.handleHand(window, true, turn, player2.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
         }
+        // ENGINE LOGIC FOR FIRST PLAYER
         else {
             window.clear();
             window.draw(wallpaperInGameSprite);
             handleUnoButton(window, player.getHand(), isUnoButton(window, player.getHand()), gameOver);
             handleDrawButton(window, player, mainDeck, turn);
-            player.handleHand(window, true, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
-            entity.handleHand(window, false, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+            player.handleHand(window, true, turn, player.getHand(), player2.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
+            player2.handleHand(window, false, turn, player2.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
         }
 
-        // DISPLAY THE MAIN DECK AS DEBUG 
-        //mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
-        stashDeck.displayDeck(window, 640.0, 360.0); // Display the stash deck
+        // DISPLAY THE STASH IN THE MIDDLE OF THE SCREEN 
+        stashDeck.displayDeck(window, 640.0, 360.0);
         window.display();
-
-        // GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)
-        if (player.getHandSize() == 1) {
-            gameOver = true;
-        }
     }
     // GAME OVER SCREEN
     window.clear();
+    currentDisplay = 1;
 }
 
 // FUNCTION TO HANDLE THE IN-GAME PVP MODE
@@ -237,10 +245,9 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
     player.drawInitialHand(mainDeck, 7);
     player2.drawInitialHand(mainDeck, 7);
 
-    // START THE GAME LOOP
+    // START THE BASE GAME ENGINE LOOP
     while (window.isOpen() && !gameOver) {
-        //std::cout << "Current turn: " << turn << std::endl;	
-        // CHECK IF THE PLAYER'S TURN IS OVER
+        // ENGINE LOGIC FOR SECOND PLAYER
         if (turn % 2 == 0) {
             window.clear();
             window.draw(wallpaperInGameSprite);
@@ -249,6 +256,7 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
             player.handleHand(window, false, turn, player.getHand(), player2.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
             player2.handleHand(window, true, turn, player2.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
         }
+        // ENGINE LOGIC FOR FIRST PLAYER
         else {
             window.clear();
             window.draw(wallpaperInGameSprite);
@@ -258,18 +266,13 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
             player2.handleHand(window, false, turn, player2.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
         }
 
-        // DISPLAY THE MAIN DECK AS DEBUG 
-        //mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
-        stashDeck.displayDeck(window, 640.0, 360.0); // Display the stash deck
+        // DISPLAY THE STASH IN THE MIDDLE OF THE SCREEN 
+        stashDeck.displayDeck(window, 640.0, 360.0); 
         window.display();
-
-        // GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)
-        if (player.getHandSize() == 1) {
-            gameOver = true;
-        }
     }
     // GAME OVER SCREEN
     window.clear();
+    currentDisplay = 1;
 }
 
 // FUNCTION TO HANDLE THE DRAW BUTTON DEPENDING ON THE CURRENT TURN
@@ -280,11 +283,11 @@ void Game::handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Dec
     bool buttonPressed = false;
     buttonPressed = event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left;
 
-    // Check if the player's hand size is less than 18 before allowing them to draw a card
+    // CHECKS IF THE MOUSE IS ON THE DRAW CARD BUTTON IN ORDER TO DRAW A CARD FROM THE MAIN DECK
     if (mouseOnDrawButton && currentPlayer.getHandSize() < 18) {
         drawButtonSprite.setColor(Color(200, 200, 200, 255));
         if (Mouse::isButtonPressed(Mouse::Left)) {
-            std::cout << "Button pressed" << std::endl;
+            std::cout << "Got a new card out of the pile! " << std::endl;
             sf::sleep(sf::seconds(1.0f));
             currentPlayer.drawCard(mainDeck);
         }
@@ -296,32 +299,34 @@ void Game::handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Dec
 }
 
 bool Game::isUnoButton(sf::RenderWindow& window, Deck& playerHand) {
-    if(playerHand.getSize() == 1) return true;
-	else return false;
+    if (playerHand.getSize() == 1) return true;
+    else return false;
 }
-
+// FUNCTION TO HANDLE THE UNO BUTTON DEPENDING ON THE CURRENT TURN
 void Game::handleUnoButton(sf::RenderWindow& window, Deck& playerDeck, bool isButtonAvailable, bool& isGameOver) {
+    // CHECK IF THE PLAYER'S HAND SIZE IS EQUAL TO 1
     if (isButtonAvailable) {
+        // TURNS THE UNO BUTON AT ITS NORMAL COLOR WHEN THE PLAYER'S HAND SIZE IS EQUAL TO 1
         unoButtonSprite.setColor(Color(255, 255, 255, 255));
-		Event event{};
-		Vector2i mousePos = Mouse::getPosition(window);
-		bool mouseOnUnoButton = unoButtonSprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
-		bool buttonPressed = false;
-		buttonPressed = event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left;
-		if (mouseOnUnoButton) {
-			if (Mouse::isButtonPressed(Mouse::Left)) {
-				std::cout << "Button UNO pressed" << std::endl;
-				sf::sleep(sf::seconds(1.0f));
-				//else {
-					//std::cout << "You didn't say UNO!" << std::endl;
-					//playerDeck.drawCard(mainDeck);
-					//playerDeck.drawCard(mainDeck);
-				//}
-			}
-		}
+        Event event{};
+        Vector2i mousePos = Mouse::getPosition(window);
+        bool mouseOnUnoButton = unoButtonSprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+        bool buttonPressed = false;
+        buttonPressed = event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left;
+        // CHECK IF THE MOUSE IS ON THE UNO BUTTON
+        if (mouseOnUnoButton) {
+            // CHECK IF THE MOUSE BUTTON IS PRESSED
+            if (Mouse::isButtonPressed(Mouse::Left)) {
+                std::cout << "Button UNO pressed" << std::endl;
+                sf::sleep(sf::seconds(1.0f));
+                std::cout << "You said UNO!" << std::endl;
+                isGameOver = true;
+            }
+        }
+        // CHECKS IF THE MOUSE IS NOT ON THE UNNO BUTTON
+        else {
+            unoButtonSprite.setColor(Color(100, 100, 100, 255));
+        }
+        window.draw(unoButtonSprite);
     }
-	else {
-		unoButtonSprite.setColor(Color(100, 100, 100, 255));
-	}
-    window.draw(unoButtonSprite);
 }
