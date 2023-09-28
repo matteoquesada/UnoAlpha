@@ -23,11 +23,11 @@ public:
 
     void removeCard(const Card& cardToRemove);
 
-    bool isCardPlayable(const Card& playedCard, const Card& targetCard);
+    bool isCardPlayable(Card& playedCard, Card& targetCard);
 
     Card getTopCard();
 
-    const std::vector<Card>& Deck::getCards() const;
+ std::vector<Card>& Deck::getCards();
 
     // Function to display the entire deck on the window
     //void handleDeck(sf::RenderWindow& window);
@@ -39,6 +39,8 @@ public:
     void fillDeck();
 
     int isClicked(sf::RenderWindow& window);
+
+
 
     std::string getRandomColor();
 

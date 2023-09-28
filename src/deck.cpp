@@ -58,7 +58,7 @@ Card Deck::drawCard() {
         return topCard;
     }
     else {
-        std::cout<<"Deck is empty!"<<std::endl;
+        std::cout << "Deck is empty!" << std::endl;
         return Card("null", -404);
     }
 }
@@ -104,72 +104,81 @@ Card Deck::getTopCard() {
 }
 
 // CHECK IF A CARD CAN BE PLAYED
-bool Deck::isCardPlayable(const Card& playedCard, const Card& targetCard) {
-    std::cout<<playedCard.getColor()<<" "<<playedCard.getNumber()<<std::endl;
-    std::cout<<targetCard.getColor()<<" "<<targetCard.getNumber()<<std::endl;
-    return (playedCard.getColor() == targetCard.getColor() || playedCard.getNumber() == targetCard.getNumber());
+bool Deck::isCardPlayable(Card& playedCard, Card& targetCard) {
+    //std::cout << "Carta jugada: " << playedCard.getColor() << " " << playedCard.getNumber() << std::endl;
+    //std::cout << "Carta en stash: " << targetCard.getColor() << " " << targetCard.getNumber() << std::endl;
+    if(playedCard.isWild()) return true;
+    if(playedCard.isSpecial()) return playedCard.getColor() == targetCard.getColor();
+    else {
+        return (playedCard.getColor() == targetCard.getColor() || playedCard.getNumber() == targetCard.getNumber());
+    }
 }
 
 // HANDLE CARD ACTIONS WHEN PLAYED
 void Deck::cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck, int& pointerToTurn) {
     if (isCardPlayable(card, stashDeck.getTopCard())) {
-        std::cout << "Card is playable!!!!" << std::endl;
-        // TO DO: SPECIAL CARDS DONT USE THE SAME NUMBER TO CHECK IF THEY ARE PLAYABLE
-        // Handle regular cards
-        switch (card.getNumber()) {
-        case 0:
-            std::swap(playerHand, opponentHand);
-            break;
-        case -1:
-            // Reverse logic here
-            break;
-        case -2:
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            pointerToTurn++;
-            break;
-        case -3:
-            pointerToTurn += 2;
-            break;
-        default:
-            // Check for other cards with the same number in the player's hand
-            for (Card& otherCard : cards) {
-                if (otherCard.getNumber() == card.getNumber() && card.getNumber() > 0) {
-                    stashDeck.addCard(otherCard);
-                }
+        if (card.isWild()) {
+            card.setColor(getRandomColor());
+            if (card.getNumber() == -5) {
+                std::cout << "Wild card played!" << std::endl;
+                std::cout << "Color changed to: " << card.getColor() << std::endl;
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                pointerToTurn++;
             }
-            pointerToTurn++;
-            break;
+            else {
+                std::cout << "Wild Draw Four card played!" << std::endl;
+                std::cout << "Color changed to: " << card.getColor() << std::endl;
+                std::cout << "Opponent draws 4 cards!" << std::endl;
+                for (int i = 0; i < 4; i++) {
+                    opponentHand.addCard(mainDeck.drawCard());
+                }
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                pointerToTurn++;
+            }
         }
-
-        stashDeck.addCard(card);
-        playerHand.removeCard(card);
-    }
-    else if (card.isWild()) {
-        std::cout << "Card is WILD and playable!!!!" << std::endl;
-
-        // Change the color of the wild card
-        card.setColor(getRandomColor());
-
-        if (card.getNumber() == -4) {
-            std::cout << "Wild changed color to: " << card.getColor() << std::endl;
-            stashDeck.addCard(card);
-            pointerToTurn++;
-        }
-        else if (card.getNumber() == -5) {
-            std::cout << "Wild Draw Four changed color to: " << card.getColor() << std::endl;
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            stashDeck.addCard(card);
-            pointerToTurn++;
-        }
-
-        playerHand.removeCard(card);
-    }
-    else {
-        std::cout << "Card is not playable!!!! (NOT WILD OR NOT SPECIAL) MEANS ERROR SO CHECK LAWS" << std::endl;
+		else if (card.isSpecial()) {
+			if (card.getNumber() == -1) {
+				std::cout << "Reverse card played!" << std::endl;
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                pointerToTurn++;
+			}
+			else if (card.getNumber() == -2) {
+				std::cout << "Plus 2 card played!" << std::endl;
+				std::cout << "Opponent draws 2 cards!" << std::endl;
+				for (int i = 0; i < 2; i++) {
+					opponentHand.addCard(mainDeck.drawCard());
+				}
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                pointerToTurn++;
+			}
+			else if (card.getNumber() == -3) {
+				std::cout << "Skip card played!" << std::endl;
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                
+                pointerToTurn += 2;
+			}
+		}
+		else {
+            if (card.getNumber() == 0) {
+                std::cout << "Zero card played!" << std::endl;
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                std::swap(playerHand, opponentHand);
+                pointerToTurn++;
+                
+            }
+            else {
+                std::cout << "Standard card played!" << std::endl;
+                stashDeck.addCard(card);
+                playerHand.removeCard(card);
+                pointerToTurn++;
+            }
+		}
     }
 }
 
@@ -192,7 +201,14 @@ void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
 
 // INITIALIZE THE STASH WITH A CARD FROM THE MAIN DECK
 void Deck::initializeStash(Deck& mainDeck) {
-    cards.push_back(mainDeck.drawCard());
+    Card drawnCard = mainDeck.drawCard();
+
+    // Keep drawing cards until a non-wild card is drawn
+    while (drawnCard.isWild()) {
+        drawnCard = mainDeck.drawCard();
+    }
+
+    cards.push_back(drawnCard);
 }
 
 // ADD A CARD TO THE DECK
@@ -206,7 +222,7 @@ size_t Deck::getSize() const {
 }
 
 // GET THE CARDS IN THE DECK
-const std::vector<Card>& Deck::getCards() const {
+std::vector<Card>& Deck::getCards(){
     return cards;
 }
 

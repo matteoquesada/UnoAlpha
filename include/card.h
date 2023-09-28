@@ -39,7 +39,7 @@ public:
 
     // Function to perform a card action
     void action();
-
+    bool isSpecial();
     bool isWild();
 
 private:

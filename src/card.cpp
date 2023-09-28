@@ -69,6 +69,10 @@ bool Card::isWild(){
     return number == -5 || number == -4;
 }
 
+bool Card::isSpecial() {
+    return number == -1 || number == -2 || number == -3;
+}
+
 void Card::setColor(const std::string& newColor) {
     color = newColor;
 }
