@@ -40,6 +40,8 @@ public:
 
     int isClicked(sf::RenderWindow& window);
 
+    std::string getRandomColor();
+
 private:
     sf::Clock Deck::clickCooldown;
     void addCard(const std::string& color, int number, int count);

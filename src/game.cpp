@@ -209,7 +209,7 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
 
         // DISPLAY THE MAIN DECK AS DEBUG 
         //mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
-
+        stashDeck.displayDeck(window, 640.0, 360.0); // Display the stash deck
         window.display();
 
         // GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)

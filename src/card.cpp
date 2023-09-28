@@ -65,6 +65,10 @@ sf::Vector2u Card::getSize() const {
     return texture.getSize();
 }
 
-bool Card::isSpecial() const {
-    return number < 0;
+bool Card::isWild(){
+    return number == -5 || number == -4;
+}
+
+void Card::setColor(const std::string& newColor) {
+    color = newColor;
 }

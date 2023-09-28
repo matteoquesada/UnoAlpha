@@ -19,6 +19,10 @@ public:
     // Function to get the card's number
     int getNumber() const;
 
+
+    // Function to set manually the card's color
+    void setColor(const std::string& color);
+
     // Function to get the card's color
     std::string getColor() const;
 
@@ -36,7 +40,7 @@ public:
     // Function to perform a card action
     void action();
 
-    bool isSpecial() const;
+    bool isWild();
 
 private:
     sf::Texture texture; // Texture for the card

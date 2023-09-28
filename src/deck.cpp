@@ -114,54 +114,79 @@ bool Deck::isCardPlayable(const Card& playedCard, const Card& targetCard) {
 void Deck::cardAction(Card& card, Deck& playerHand, Deck& opponentHand, Deck& stashDeck, Deck& mainDeck, int& pointerToTurn) {
     if (isCardPlayable(card, stashDeck.getTopCard())) {
         std::cout << "Card is playable!!!!" << std::endl;
-
-        // Add the card to the stash
-        stashDeck.addCard(card);
-
-        // Remove the card from the player's hand
-        playerHand.removeCard(card);
-
-        // Implement Uno rules
+        // TO DO: SPECIAL CARDS DONT USE THE SAME NUMBER TO CHECK IF THEY ARE PLAYABLE
+        // Handle regular cards
         switch (card.getNumber()) {
-        case -1: // Reverse
-            // Assuming you have a way to reverse turn order, implement it here
+        case 0:
+            std::swap(playerHand, opponentHand);
             break;
-        case -2: // Plus2
+        case -1:
+            // Reverse logic here
+            break;
+        case -2:
             opponentHand.addCard(mainDeck.drawCard());
             opponentHand.addCard(mainDeck.drawCard());
+            pointerToTurn++;
             break;
-        case -3: // Skip
-            // Skip opponent's turn. If you're increasing pointerToTurn at the end, 
-            // you might want to increase it by 2 here to skip the opponent's turn.
+        case -3:
             pointerToTurn += 2;
-            return;
-        case -4: // Wild Plus4
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            opponentHand.addCard(mainDeck.drawCard());
-            // You might want to add color selection logic for Wild cards
-            break;
-        case -5: // Rumble (I assume this is Wild)
-            // You might want to add color selection logic for Wild cards
             break;
         default:
+            // Check for other cards with the same number in the player's hand
+            for (Card& otherCard : cards) {
+                if (otherCard.getNumber() == card.getNumber() && card.getNumber() > 0) {
+                    stashDeck.addCard(otherCard);
+                }
+            }
+            pointerToTurn++;
             break;
         }
 
-        // Increase the turn pointer
-        pointerToTurn++;
+        stashDeck.addCard(card);
+        playerHand.removeCard(card);
+    }
+    else if (card.isWild()) {
+        std::cout << "Card is WILD and playable!!!!" << std::endl;
+
+        // Change the color of the wild card
+        card.setColor(getRandomColor());
+
+        if (card.getNumber() == -4) {
+            std::cout << "Wild changed color to: " << card.getColor() << std::endl;
+            stashDeck.addCard(card);
+            pointerToTurn++;
+        }
+        else if (card.getNumber() == -5) {
+            std::cout << "Wild Draw Four changed color to: " << card.getColor() << std::endl;
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            opponentHand.addCard(mainDeck.drawCard());
+            stashDeck.addCard(card);
+            pointerToTurn++;
+        }
+
+        playerHand.removeCard(card);
+    }
+    else {
+        std::cout << "Card is not playable!!!! (NOT WILD OR NOT SPECIAL) MEANS ERROR SO CHECK LAWS" << std::endl;
     }
 }
 
 // DISPLAY THE DECK ON THE SCREEN
 void Deck::displayDeck(RenderWindow& window, float xOffset, float yOffset) {
-    const float cardSpacing = 57.0f;
+    const float windowCenterX = 1280 / 2.0f;
+    const float windowCenterY = 720 / 2.0f;
+    const float cardSpacing = 2.0f; // Small spacing to see the card border
+
+    float currentYOffset = windowCenterY - (cards.size() / 2.0f * cardSpacing);
+
     for (Card& card : cards) {
         Sprite cardSprite(card.getTexture());
-        cardSprite.setPosition(xOffset, yOffset);
+        cardSprite.setPosition(windowCenterX - cardSprite.getGlobalBounds().width / 2,
+            currentYOffset - cardSprite.getGlobalBounds().height / 2);
         window.draw(cardSprite);
-        xOffset += cardSpacing;
+        currentYOffset += cardSpacing;
     }
 }
 
@@ -194,4 +219,12 @@ void Deck::removeCard(const Card& cardToRemove) {
                 card.getType() == cardToRemove.getType();
         }),
         cards.end());
+}
+
+std::string Deck::getRandomColor() {
+    std::string colors[4] = { "red", "blue", "yellow", "green" };
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dist(0, 3);
+    return colors[dist(gen)];
 }
