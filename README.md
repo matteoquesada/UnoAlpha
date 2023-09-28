@@ -1,5 +1,5 @@
 # UNO in C++ BETA
-![MAIN MENU]([https://i.imgur.com/1JUNFYF.png)
+![Description of Image](https://i.imgur.com/1JUNFYF.png)
 
 ## Important Note
 
