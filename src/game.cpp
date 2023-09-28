@@ -18,6 +18,7 @@ Texture buttonPVETexture;
 Sprite buttonPVESprite;
 Texture drawButtonTexture;
 Sprite drawButtonSprite;
+Sprite unoButtonSprite;
 SoundBuffer clickSoundBuffer;
 Sound clickSound;
 SoundBuffer clickLogoSoundBuffer;
@@ -51,6 +52,7 @@ void Game::initializeResources() {
     initializeTextureAndSprite(buttonPVPTexture, buttonPVPSprite, "assets/buttonPVP.png", 380, 165);
     initializeTextureAndSprite(buttonPVETexture, buttonPVESprite, "assets/buttonPVE.png", 380, 500);
     initializeTextureAndSprite(drawButtonTexture, drawButtonSprite, "assets/drawCard.png", 1165, 610, 0.2f, 0.2f);
+    initializeTextureAndSprite(logoTexture, unoButtonSprite, "assets/logo.png", 1020, 618, 0.1f, 0.1f);
     initializeSound(clickSound, clickSoundBuffer, "assets/sounds/clickPop.mp3");
     initializeSound(clickLogoSound, clickLogoSoundBuffer, "assets/sounds/clickLogo.mp3");
 }
@@ -170,10 +172,6 @@ void Game::handleGameModeMenu(RenderWindow& window) {
 
 // FUNCTION TO HANDLE THE IN-GAME PVE MODE
 void Game::handleInGamePVE(RenderWindow& window) {
-}
-
-// FUNCTION TO HANDLE THE IN-GAME PVP MODE
-void Game::HandleInGamePVP(sf::RenderWindow& window) {
     // CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
     int turn = 1;
 
@@ -195,6 +193,7 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
         if (turn % 2 == 0) {
             window.clear();
             window.draw(wallpaperInGameSprite);
+            handleUnoButton(window, entity.getHand(), isUnoButton(window, entity.getHand()), gameOver);
             handleDrawButton(window, entity, mainDeck, turn);
             player.handleHand(window, false, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
             entity.handleHand(window, true, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
@@ -202,9 +201,61 @@ void Game::HandleInGamePVP(sf::RenderWindow& window) {
         else {
             window.clear();
             window.draw(wallpaperInGameSprite);
+            handleUnoButton(window, player.getHand(), isUnoButton(window, player.getHand()), gameOver);
             handleDrawButton(window, player, mainDeck, turn);
             player.handleHand(window, true, turn, player.getHand(), entity.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
             entity.handleHand(window, false, turn, entity.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+        }
+
+        // DISPLAY THE MAIN DECK AS DEBUG 
+        //mainDeck.displayDeck(window, 22.0, 90.0); // Display the main deck
+        stashDeck.displayDeck(window, 640.0, 360.0); // Display the stash deck
+        window.display();
+
+        // GAME OVER LOGIC (CURRENTLY ONLY CHECKS IF THE PLAYER'S HAND IS EMPTY)
+        if (player.getHandSize() == 1) {
+            gameOver = true;
+        }
+    }
+    // GAME OVER SCREEN
+    window.clear();
+}
+
+// FUNCTION TO HANDLE THE IN-GAME PVP MODE
+void Game::HandleInGamePVP(sf::RenderWindow& window) {
+    // CREATE A TURN VARIABLE TO KEEP TRACK OF THE CURRENT TURN
+    int turn = 1;
+
+    // CREATE A BOOLEAN VARIABLE TO KEEP TRACK OF THE GAME OVER STATE
+    bool gameOver = false;
+
+    // CREATE A PLAYER OBJECT AND AN ENTITY OBJECT IN ORDER TO PLAY THE GAME
+    Player player;
+    Player player2;
+
+    // DRAW 7 CARDS FOR THE PLAYER AND THE ENTITY
+    player.drawInitialHand(mainDeck, 7);
+    player2.drawInitialHand(mainDeck, 7);
+
+    // START THE GAME LOOP
+    while (window.isOpen() && !gameOver) {
+        //std::cout << "Current turn: " << turn << std::endl;	
+        // CHECK IF THE PLAYER'S TURN IS OVER
+        if (turn % 2 == 0) {
+            window.clear();
+            window.draw(wallpaperInGameSprite);
+            handleUnoButton(window, player2.getHand(), isUnoButton(window, player2.getHand()), gameOver);
+            handleDrawButton(window, player2, mainDeck, turn);
+            player.handleHand(window, false, turn, player.getHand(), player2.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
+            player2.handleHand(window, true, turn, player2.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS CONTROLLABLE
+        }
+        else {
+            window.clear();
+            window.draw(wallpaperInGameSprite);
+            handleUnoButton(window, player.getHand(), isUnoButton(window, player.getHand()), gameOver);
+            handleDrawButton(window, player, mainDeck, turn);
+            player.handleHand(window, true, turn, player.getHand(), player2.getHand(), stashDeck, mainDeck); // DISPLAY THE PLAYER'S HAND AS CONTROLLABLE
+            player2.handleHand(window, false, turn, player2.getHand(), player.getHand(), stashDeck, mainDeck); // DISPLAY THE ENTITY'S HAND AS NOT CONTROLLABLE (OFFSET BY 22.0, 7.0) ->AND SCALE BY 0.5 BY DEFAULT<-
         }
 
         // DISPLAY THE MAIN DECK AS DEBUG 
@@ -228,7 +279,9 @@ void Game::handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Dec
     bool mouseOnDrawButton = drawButtonSprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
     bool buttonPressed = false;
     buttonPressed = event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left;
-    if (mouseOnDrawButton) {
+
+    // Check if the player's hand size is less than 18 before allowing them to draw a card
+    if (mouseOnDrawButton && currentPlayer.getHandSize() < 18) {
         drawButtonSprite.setColor(Color(200, 200, 200, 255));
         if (Mouse::isButtonPressed(Mouse::Left)) {
             std::cout << "Button pressed" << std::endl;
@@ -240,4 +293,35 @@ void Game::handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Dec
         drawButtonSprite.setColor(Color(255, 255, 255, 255));
     }
     window.draw(drawButtonSprite);
+}
+
+bool Game::isUnoButton(sf::RenderWindow& window, Deck& playerHand) {
+    if(playerHand.getSize() == 1) return true;
+	else return false;
+}
+
+void Game::handleUnoButton(sf::RenderWindow& window, Deck& playerDeck, bool isButtonAvailable, bool& isGameOver) {
+    if (isButtonAvailable) {
+        unoButtonSprite.setColor(Color(255, 255, 255, 255));
+		Event event{};
+		Vector2i mousePos = Mouse::getPosition(window);
+		bool mouseOnUnoButton = unoButtonSprite.getGlobalBounds().contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y));
+		bool buttonPressed = false;
+		buttonPressed = event.type == Event::MouseButtonPressed && event.mouseButton.button == Mouse::Left;
+		if (mouseOnUnoButton) {
+			if (Mouse::isButtonPressed(Mouse::Left)) {
+				std::cout << "Button UNO pressed" << std::endl;
+				sf::sleep(sf::seconds(1.0f));
+				//else {
+					//std::cout << "You didn't say UNO!" << std::endl;
+					//playerDeck.drawCard(mainDeck);
+					//playerDeck.drawCard(mainDeck);
+				//}
+			}
+		}
+    }
+	else {
+		unoButtonSprite.setColor(Color(100, 100, 100, 255));
+	}
+    window.draw(unoButtonSprite);
 }

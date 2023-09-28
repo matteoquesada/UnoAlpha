@@ -31,4 +31,7 @@ private:
 	void handleInGamePVE(sf::RenderWindow& window);
 	void HandleInGamePVP(sf::RenderWindow& window);
 	void handleDrawButton(sf::RenderWindow& window, Player& currentPlayer, Deck& mainDeck, int turn);
+	bool isUnoButton(sf::RenderWindow& window, Deck& playerHand);
+	void handleUnoButton(sf::RenderWindow& window, Deck& playerDeck, bool isButtonAvailable, bool& isGameOver);
+	bool gameOver;
 };
